@@ -1,20 +1,11 @@
-/*
-  Warnings:
-
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('STUDENT', 'TUTOR', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "BookingStatus" AS ENUM ('CONFIRMED', 'COMPLETED', 'CANCELLED');
+CREATE TYPE "BookingStatus" AS ENUM ('PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELLED');
 
 -- CreateEnum
-CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'BANNED');
-
--- DropTable
-DROP TABLE "User";
+CREATE TYPE "Status" AS ENUM ('ACTIVE', 'BANNED');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -23,11 +14,11 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "Role" NOT NULL,
-    "avatar" TEXT,
-    "status" "UserStatus" NOT NULL DEFAULT 'ACTIVE',
     "isBanned" BOOLEAN NOT NULL DEFAULT false,
+    "avatar" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "status" "Status" NOT NULL DEFAULT 'ACTIVE',
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

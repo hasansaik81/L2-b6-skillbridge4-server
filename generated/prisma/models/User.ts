@@ -30,11 +30,11 @@ export type UserMinAggregateOutputType = {
   email: string | null
   password: string | null
   role: $Enums.Role | null
-  avatar: string | null
-  status: $Enums.UserStatus | null
   isBanned: boolean | null
+  avatar: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.Status | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -43,11 +43,11 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   password: string | null
   role: $Enums.Role | null
-  avatar: string | null
-  status: $Enums.UserStatus | null
   isBanned: boolean | null
+  avatar: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  status: $Enums.Status | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -56,11 +56,11 @@ export type UserCountAggregateOutputType = {
   email: number
   password: number
   role: number
-  avatar: number
-  status: number
   isBanned: number
+  avatar: number
   createdAt: number
   updatedAt: number
+  status: number
   _all: number
 }
 
@@ -71,11 +71,11 @@ export type UserMinAggregateInputType = {
   email?: true
   password?: true
   role?: true
-  avatar?: true
-  status?: true
   isBanned?: true
+  avatar?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -84,11 +84,11 @@ export type UserMaxAggregateInputType = {
   email?: true
   password?: true
   role?: true
-  avatar?: true
-  status?: true
   isBanned?: true
+  avatar?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -97,11 +97,11 @@ export type UserCountAggregateInputType = {
   email?: true
   password?: true
   role?: true
-  avatar?: true
-  status?: true
   isBanned?: true
+  avatar?: true
   createdAt?: true
   updatedAt?: true
+  status?: true
   _all?: true
 }
 
@@ -183,11 +183,11 @@ export type UserGroupByOutputType = {
   email: string
   password: string
   role: $Enums.Role
-  avatar: string | null
-  status: $Enums.UserStatus
   isBanned: boolean
+  avatar: string | null
   createdAt: Date
   updatedAt: Date
+  status: $Enums.Status
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -217,11 +217,12 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  avatar?: Prisma.StringNullableFilter<"User"> | string | null
-  status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   isBanned?: Prisma.BoolFilter<"User"> | boolean
+  avatar?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  status?: Prisma.EnumStatusFilter<"User"> | $Enums.Status
+  tutorProfile?: Prisma.XOR<Prisma.TutorProfilesNullableScalarRelationFilter, Prisma.TutorProfilesWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -230,11 +231,12 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  tutorProfile?: Prisma.TutorProfilesOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -246,11 +248,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
-  avatar?: Prisma.StringNullableFilter<"User"> | string | null
-  status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   isBanned?: Prisma.BoolFilter<"User"> | boolean
+  avatar?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  status?: Prisma.EnumStatusFilter<"User"> | $Enums.Status
+  tutorProfile?: Prisma.XOR<Prisma.TutorProfilesNullableScalarRelationFilter, Prisma.TutorProfilesWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -259,11 +262,11 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -278,11 +281,11 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
-  avatar?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   isBanned?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  avatar?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  status?: Prisma.EnumStatusWithAggregatesFilter<"User"> | $Enums.Status
 }
 
 export type UserCreateInput = {
@@ -291,11 +294,12 @@ export type UserCreateInput = {
   email: string
   password: string
   role: $Enums.Role
-  avatar?: string | null
-  status?: $Enums.UserStatus
   isBanned?: boolean
+  avatar?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.Status
+  tutorProfile?: Prisma.TutorProfilesCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -304,11 +308,12 @@ export type UserUncheckedCreateInput = {
   email: string
   password: string
   role: $Enums.Role
-  avatar?: string | null
-  status?: $Enums.UserStatus
   isBanned?: boolean
+  avatar?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.Status
+  tutorProfile?: Prisma.TutorProfilesUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -317,11 +322,12 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  tutorProfile?: Prisma.TutorProfilesUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -330,11 +336,12 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  tutorProfile?: Prisma.TutorProfilesUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -343,11 +350,11 @@ export type UserCreateManyInput = {
   email: string
   password: string
   role: $Enums.Role
-  avatar?: string | null
-  status?: $Enums.UserStatus
   isBanned?: boolean
+  avatar?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  status?: $Enums.Status
 }
 
 export type UserUpdateManyMutationInput = {
@@ -356,11 +363,11 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -369,11 +376,11 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -382,11 +389,11 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  avatar?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -395,11 +402,11 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  avatar?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -408,11 +415,16 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
-  avatar?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   isBanned?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -423,20 +435,102 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type EnumUserStatusFieldUpdateOperationsInput = {
-  set?: $Enums.UserStatus
-}
-
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type EnumStatusFieldUpdateOperationsInput = {
+  set?: $Enums.Status
+}
+
+export type UserCreateNestedOneWithoutTutorProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTutorProfileInput, Prisma.UserUncheckedCreateWithoutTutorProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTutorProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTutorProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTutorProfileInput, Prisma.UserUncheckedCreateWithoutTutorProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTutorProfileInput
+  upsert?: Prisma.UserUpsertWithoutTutorProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTutorProfileInput, Prisma.UserUpdateWithoutTutorProfileInput>, Prisma.UserUncheckedUpdateWithoutTutorProfileInput>
+}
+
+export type UserCreateWithoutTutorProfileInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role: $Enums.Role
+  isBanned?: boolean
+  avatar?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.Status
+}
+
+export type UserUncheckedCreateWithoutTutorProfileInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role: $Enums.Role
+  isBanned?: boolean
+  avatar?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.Status
+}
+
+export type UserCreateOrConnectWithoutTutorProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTutorProfileInput, Prisma.UserUncheckedCreateWithoutTutorProfileInput>
+}
+
+export type UserUpsertWithoutTutorProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTutorProfileInput, Prisma.UserUncheckedUpdateWithoutTutorProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTutorProfileInput, Prisma.UserUncheckedCreateWithoutTutorProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTutorProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTutorProfileInput, Prisma.UserUncheckedUpdateWithoutTutorProfileInput>
+}
+
+export type UserUpdateWithoutTutorProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+}
+
+export type UserUncheckedUpdateWithoutTutorProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
 }
 
 
@@ -447,11 +541,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   password?: boolean
   role?: boolean
-  avatar?: boolean
-  status?: boolean
   isBanned?: boolean
+  avatar?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
+  tutorProfile?: boolean | Prisma.User$tutorProfileArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -460,11 +555,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   password?: boolean
   role?: boolean
-  avatar?: boolean
-  status?: boolean
   isBanned?: boolean
+  avatar?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -473,11 +568,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   password?: boolean
   role?: boolean
-  avatar?: boolean
-  status?: boolean
   isBanned?: boolean
+  avatar?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -486,29 +581,36 @@ export type UserSelectScalar = {
   email?: boolean
   password?: boolean
   role?: boolean
-  avatar?: boolean
-  status?: boolean
   isBanned?: boolean
+  avatar?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  status?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "avatar" | "status" | "isBanned" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "isBanned" | "avatar" | "createdAt" | "updatedAt" | "status", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tutorProfile?: boolean | Prisma.User$tutorProfileArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {}
+  objects: {
+    tutorProfile: Prisma.$TutorProfilesPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     email: string
     password: string
     role: $Enums.Role
-    avatar: string | null
-    status: $Enums.UserStatus
     isBanned: boolean
+    avatar: string | null
     createdAt: Date
     updatedAt: Date
+    status: $Enums.Status
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -903,6 +1005,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tutorProfile<T extends Prisma.User$tutorProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tutorProfileArgs<ExtArgs>>): Prisma.Prisma__TutorProfilesClient<runtime.Types.Result.GetResult<Prisma.$TutorProfilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -937,11 +1040,11 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
-  readonly avatar: Prisma.FieldRef<"User", 'String'>
-  readonly status: Prisma.FieldRef<"User", 'UserStatus'>
   readonly isBanned: Prisma.FieldRef<"User", 'Boolean'>
+  readonly avatar: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly status: Prisma.FieldRef<"User", 'Status'>
 }
     
 
@@ -958,6 +1061,10 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -977,6 +1084,10 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -994,6 +1105,10 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -1043,6 +1158,10 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1091,6 +1210,10 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which Users to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1133,6 +1256,10 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to create a User.
    */
@@ -1181,6 +1308,10 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1248,6 +1379,10 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1274,6 +1409,10 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1294,6 +1433,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.tutorProfile
+ */
+export type User$tutorProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TutorProfiles
+   */
+  select?: Prisma.TutorProfilesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TutorProfiles
+   */
+  omit?: Prisma.TutorProfilesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TutorProfilesInclude<ExtArgs> | null
+  where?: Prisma.TutorProfilesWhereInput
+}
+
+/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1305,4 +1463,8 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
 }

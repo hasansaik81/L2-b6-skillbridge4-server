@@ -19,6 +19,7 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 
 export const BookingStatus = {
+  PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
   COMPLETED: 'COMPLETED',
   CANCELLED: 'CANCELLED'
@@ -27,9 +28,9 @@ export const BookingStatus = {
 export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
 
 
-export const UserStatus = {
+export const Status = {
   ACTIVE: 'ACTIVE',
   BANNED: 'BANNED'
 } as const
 
-export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+export type Status = (typeof Status)[keyof typeof Status]

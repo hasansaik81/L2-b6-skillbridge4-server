@@ -22,6 +22,7 @@ enum Role {
 }
 
 enum BookingStatus {
+  PENDING
   CONFIRMED
   COMPLETED
   CANCELLED
@@ -33,21 +34,46 @@ enum Status {
 }
 
 
-model User {
-  id            String   @id @default(uuid())
-  name          String
-  email         String   @unique
-  password      String
-  role          Role
-  avatar        String?
-  status         Status  @default(ACTIVE)
-   
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
 
-  // tutorProfile  TutorProfile?
-  // studentBookings Booking[] @relation("StudentBookings")
-  // reviewsGiven  Review[]   @relation("Reviewer")
-    @@index([status])
+
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  password     String
+  role         Role
+  isBanned     Boolean  @default(false)
+  avatar       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  status       Status   @default(ACTIVE)
+
+  tutorProfile  TutorProfiles?
+
+ 
+
+ @@index([status])
   @@map("users")
+ 
 }
+
+
+model TutorProfiles{
+    id          String   @id @default(uuid())
+  userId      String   @unique
+  bio         String
+  hourlyRate  Float?
+  experience  Int      // years of experience
+  education   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+    
+    
+  tutorId     String @unique
+  user    User @relation(fields: [tutorId],references: [id])
+
+  // Relations
+  
+}
+
