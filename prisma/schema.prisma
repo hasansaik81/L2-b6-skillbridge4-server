@@ -60,8 +60,8 @@ model User {
 
 
 model TutorProfiles{
-    id          String   @id @default(uuid())
-  userId      String   @unique
+  id          String   @id @default(uuid())
+  
   bio         String
   hourlyRate  Float?
   experience  Int      // years of experience
@@ -74,6 +74,7 @@ model TutorProfiles{
   user    User @relation(fields: [tutorId],references: [id])
 
   // Relations
+  @@map("tutorProfile")
   
 }
 

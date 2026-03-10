@@ -1,8 +1,11 @@
-import express from 'express';
-import { TutorController } from './tutor.controller';
+import express from "express";
+import auth, { UserRole } from "../../middlewares/auth";
+import { TutorController } from "./tutor.controller";
 
-const router = express.Router();
+const router= express.Router()
 
-router.get("/", TutorController.getAllTutors);
+router.post("/",auth(UserRole.tutor),TutorController.createTutor);
+router.get("/",auth(UserRole.tutor),TutorController.getAllTutor)
 
-export const TutorRoutes = router;
+
+export const TutorRoutes= router;

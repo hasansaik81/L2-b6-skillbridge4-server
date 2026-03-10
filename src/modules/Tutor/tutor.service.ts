@@ -1,31 +1,50 @@
-// import { prisma } from "../../lib/prisma";
 
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma"
 
-const getAllTutors = async (query: any) => {
-  try {
-    const tutors = await prisma.tutorProfile.findMany({
-      where: {
-        user: {
-          role: "TUTOR",
-          status: "ACTIVE",
-        },
-      },
-      include: {
-        user: true,
-        categories: true,
-        reviews: true,
-      },
-    });
+const createTutorIntoDB=async(payLoad:any,userId:string)=>{
 
-    return tutors;
-  } catch (error: any) {
-    throw new Error(error.message);
+  const user=await prisma.user.findUnique({
+    where:{
+      id:userId,
+    },
+  });
+  if(!user){
+    throw new Error ("User not found")
   }
+  const result= await prisma.tutorProfiles.create({
+    data:{...payLoad,tutorId:user.id},
+  });
+  return result;
 };
 
+//  tutorId:user
+// userId: user.id
 
 
-export const TutorService = {
-   getAllTutors 
-    };
+const getAllTutorIntoDB=async(userId:string)=>{
+
+
+  const user=await prisma.user.findUnique({
+    where:{
+      id:userId,
+    },
+  });
+  if(!user){
+    throw new Error ("User not found!!")
+  }
+  const result =await prisma.tutorProfiles.findUniqueOrThrow({
+    where:{
+      tutorId:user.id,
+    },
+    include:{
+      user:true
+    }
+  })
+
+  return result;
+}
+
+export const TutorService={
+  createTutorIntoDB,
+  getAllTutorIntoDB
+}

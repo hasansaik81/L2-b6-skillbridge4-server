@@ -1,0 +1,58 @@
+import { Request, Response } from "express";
+import { TutorService } from "./tutor.service";
+import sendResponse from "../../utils/sendResponse";
+
+const createTutor=async(req:Request, res:Response)=>{
+  console.log("controller", req.user)
+    try{
+      const result=await TutorService.createTutorIntoDB(
+        req.body,
+        req.user?.id,
+      );
+      sendResponse(res,{
+        statusCode:201,
+        success:true,
+        message:"User Created",
+        data:result,
+
+      });
+    }catch (error:any){
+      
+          sendResponse(res,{
+            statusCode:400,
+            success:false,
+            message:error?.message||"Something went wron!!",
+            data:null,
+          });
+    }
+};
+
+
+
+
+const getAllTutor=async (req:Request,res:Response)=>{
+  try{
+    const result =await TutorService.getAllTutorIntoDB(req.user?.id);
+    sendResponse(res,{
+      statusCode:201,
+      success:true,
+      message:"Tutor retrived Successfully.",
+      data:result,
+    });
+  }catch(error:any){
+    console.error(error)
+    sendResponse(res,{
+      statusCode:400,
+      success:false,
+      message:error?.message||"Something went wrong",
+      data:null,
+    })
+  };
+}
+
+
+
+export const TutorController={
+    createTutor,
+    getAllTutor
+}

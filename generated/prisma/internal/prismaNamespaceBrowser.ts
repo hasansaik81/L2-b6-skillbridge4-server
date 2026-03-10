@@ -89,7 +89,6 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const TutorProfilesScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   bio: 'bio',
   hourlyRate: 'hourlyRate',
   experience: 'experience',
