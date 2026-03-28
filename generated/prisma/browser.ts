@@ -27,3 +27,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type TutorProfiles = Prisma.TutorProfilesModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel

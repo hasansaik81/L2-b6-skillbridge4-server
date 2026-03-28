@@ -72,9 +72,23 @@ model TutorProfiles{
     
   tutorId     String @unique
   user    User @relation(fields: [tutorId],references: [id])
-
+   categories Category[]
   // Relations
   @@map("tutorProfile")
   
+  
+}
+
+model Category{
+   id            String      @id @default(uuid())
+ 
+  price         Float
+  description   String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  tutorId      String
+  tutor         TutorProfiles @relation(fields: [tutorId],references: [id])
+
+  @@map("category")
 }
 

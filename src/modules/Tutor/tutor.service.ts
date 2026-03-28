@@ -38,11 +38,15 @@ const getAllTutorIntoDB=async(userId:string)=>{
     },
     include:{
       user:true
-    }
-  })
+    },
+  });
 
   return result;
-}
+};
+
+// const getSingleSitterIntoDB=async(petId:string)=>{
+//   const result = await prisma.
+// }
 
 export const TutorService={
   createTutorIntoDB,
