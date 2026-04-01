@@ -1,0 +1,2 @@
+-- CreateEnum
+CREATE TYPE "CategoryType" AS ENUM ('DAY_CARE', 'NIGHT_CARE', 'RESIDENTIAL', 'ONLINE');

@@ -12,7 +12,7 @@ const createTutor=async(req:Request, res:Response)=>{
       sendResponse(res,{
         statusCode:201,
         success:true,
-        message:"User Created",
+        message:"Tutor Created",
         data:result,
 
       });
@@ -50,9 +50,30 @@ const getAllTutor=async (req:Request,res:Response)=>{
   };
 }
 
+const getSingleTutor=async(req:Request,res:Response)=>{
+  try{
+    // const tutorId=req.params.id;
+    const result=await TutorService.getSingleSitterIntoDB(req.params?.id as string);
+    sendResponse(res,{
+      statusCode:201,
+      success:true,
+      message:"Tutor retrived Successfully.",
+      data:result,
+    });
+  }catch(error:any){
+    console.error(error)
+    sendResponse(res,{
+      statusCode:400,
+      success:false,
+      message:error?.message||"Something went wrong",
+      data:null,
+    })
+  };
 
+}
 
 export const TutorController={
     createTutor,
-    getAllTutor
+    getAllTutor,
+    getSingleTutor
 }

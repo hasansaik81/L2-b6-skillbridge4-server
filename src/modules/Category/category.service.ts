@@ -30,14 +30,14 @@ const getAllCategoryIntoDB=async(userId:string)=>{
     },
   });
   if(!tutorProfile){
-    throw new Error ("User not found!!")
+    throw new Error ("Tutor Profile not found!!")
   }
-  const result =await prisma.tutorProfiles.findMany({
+  const result =await prisma.category.findMany({
     where:{
       tutorId:tutorProfile.id,
     },
     include:{
-      user:true
+      tutor:true
     },
   });
 
@@ -47,6 +47,8 @@ const getAllCategoryIntoDB=async(userId:string)=>{
 // const getSingleSitterIntoDB=async(petId:string)=>{
 //   const result = await prisma.
 // }
+
+// const getSingleServiceIntoDB=async()
 
 
 

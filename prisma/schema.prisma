@@ -33,6 +33,13 @@ enum Status {
     BANNED
 }
 
+enum CategoryType {
+  DAY_CARE
+  NIGHT_CARE
+  RESIDENTIAL
+  ONLINE
+}
+
 
 
 
@@ -79,16 +86,17 @@ model TutorProfiles{
   
 }
 
-model Category{
+model Category {
    id            String      @id @default(uuid())
- 
+  categoryType   CategoryType
   price         Float
   description   String?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  tutorId      String
-  tutor         TutorProfiles @relation(fields: [tutorId],references: [id])
 
+  tutorId      String
+  tutor        TutorProfiles @relation(fields: [tutorId],references: [id])
+  
   @@map("category")
 }
 

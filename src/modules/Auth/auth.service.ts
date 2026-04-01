@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 export const secret = "iadmcttoken";
 
 const createUserIntoDb=async(payload:any)=>{
- const hashPassword=await bcrypt.hash(payload.password,8)   
-const result =await prisma.user.create({
+ const hashPassword=await bcrypt.hash(payload.password,8) 
 
+const result =await prisma.user.create({
 data:{...payload,password:hashPassword},
 });
 const {password, ...newResult}=result;
@@ -38,7 +38,7 @@ const loginUserIntoDb=async(payload:any)=>{
     status:user.status,
     email:user.email
  }
-const token=jwt.sign(userData , secret ,{expiresIn:"1d"})
+const token = jwt.sign(userData , secret ,{expiresIn:"1d"})
 return{
     token,user
 }

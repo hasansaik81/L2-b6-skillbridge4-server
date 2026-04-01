@@ -699,6 +699,7 @@ export type TutorProfilesScalarFieldEnum = (typeof TutorProfilesScalarFieldEnum)
 
 export const CategoryScalarFieldEnum = {
   id: 'id',
+  categoryType: 'categoryType',
   price: 'price',
   description: 'description',
   createdAt: 'createdAt',
@@ -827,6 +828,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoryType'
+ */
+export type EnumCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryType'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoryType[]'
+ */
+export type ListEnumCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryType[]'>
     
 
 /**

@@ -36,6 +36,7 @@ export type CategorySumAggregateOutputType = {
 
 export type CategoryMinAggregateOutputType = {
   id: string | null
+  categoryType: $Enums.CategoryType | null
   price: number | null
   description: string | null
   createdAt: Date | null
@@ -45,6 +46,7 @@ export type CategoryMinAggregateOutputType = {
 
 export type CategoryMaxAggregateOutputType = {
   id: string | null
+  categoryType: $Enums.CategoryType | null
   price: number | null
   description: string | null
   createdAt: Date | null
@@ -54,6 +56,7 @@ export type CategoryMaxAggregateOutputType = {
 
 export type CategoryCountAggregateOutputType = {
   id: number
+  categoryType: number
   price: number
   description: number
   createdAt: number
@@ -73,6 +76,7 @@ export type CategorySumAggregateInputType = {
 
 export type CategoryMinAggregateInputType = {
   id?: true
+  categoryType?: true
   price?: true
   description?: true
   createdAt?: true
@@ -82,6 +86,7 @@ export type CategoryMinAggregateInputType = {
 
 export type CategoryMaxAggregateInputType = {
   id?: true
+  categoryType?: true
   price?: true
   description?: true
   createdAt?: true
@@ -91,6 +96,7 @@ export type CategoryMaxAggregateInputType = {
 
 export type CategoryCountAggregateInputType = {
   id?: true
+  categoryType?: true
   price?: true
   description?: true
   createdAt?: true
@@ -187,6 +193,7 @@ export type CategoryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type CategoryGroupByOutputType = {
   id: string
+  categoryType: $Enums.CategoryType
   price: number
   description: string | null
   createdAt: Date
@@ -219,6 +226,7 @@ export type CategoryWhereInput = {
   OR?: Prisma.CategoryWhereInput[]
   NOT?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
   id?: Prisma.StringFilter<"Category"> | string
+  categoryType?: Prisma.EnumCategoryTypeFilter<"Category"> | $Enums.CategoryType
   price?: Prisma.FloatFilter<"Category"> | number
   description?: Prisma.StringNullableFilter<"Category"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Category"> | Date | string
@@ -229,6 +237,7 @@ export type CategoryWhereInput = {
 
 export type CategoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  categoryType?: Prisma.SortOrder
   price?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -242,6 +251,7 @@ export type CategoryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
   OR?: Prisma.CategoryWhereInput[]
   NOT?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
+  categoryType?: Prisma.EnumCategoryTypeFilter<"Category"> | $Enums.CategoryType
   price?: Prisma.FloatFilter<"Category"> | number
   description?: Prisma.StringNullableFilter<"Category"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Category"> | Date | string
@@ -252,6 +262,7 @@ export type CategoryWhereUniqueInput = Prisma.AtLeast<{
 
 export type CategoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  categoryType?: Prisma.SortOrder
   price?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -269,6 +280,7 @@ export type CategoryScalarWhereWithAggregatesInput = {
   OR?: Prisma.CategoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CategoryScalarWhereWithAggregatesInput | Prisma.CategoryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Category"> | string
+  categoryType?: Prisma.EnumCategoryTypeWithAggregatesFilter<"Category"> | $Enums.CategoryType
   price?: Prisma.FloatWithAggregatesFilter<"Category"> | number
   description?: Prisma.StringNullableWithAggregatesFilter<"Category"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Category"> | Date | string
@@ -278,6 +290,7 @@ export type CategoryScalarWhereWithAggregatesInput = {
 
 export type CategoryCreateInput = {
   id?: string
+  categoryType: $Enums.CategoryType
   price: number
   description?: string | null
   createdAt?: Date | string
@@ -287,6 +300,7 @@ export type CategoryCreateInput = {
 
 export type CategoryUncheckedCreateInput = {
   id?: string
+  categoryType: $Enums.CategoryType
   price: number
   description?: string | null
   createdAt?: Date | string
@@ -296,6 +310,7 @@ export type CategoryUncheckedCreateInput = {
 
 export type CategoryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryType?: Prisma.EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -305,6 +320,7 @@ export type CategoryUpdateInput = {
 
 export type CategoryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryType?: Prisma.EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -314,6 +330,7 @@ export type CategoryUncheckedUpdateInput = {
 
 export type CategoryCreateManyInput = {
   id?: string
+  categoryType: $Enums.CategoryType
   price: number
   description?: string | null
   createdAt?: Date | string
@@ -323,6 +340,7 @@ export type CategoryCreateManyInput = {
 
 export type CategoryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryType?: Prisma.EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,6 +349,7 @@ export type CategoryUpdateManyMutationInput = {
 
 export type CategoryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryType?: Prisma.EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -350,6 +369,7 @@ export type CategoryOrderByRelationAggregateInput = {
 
 export type CategoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  categoryType?: Prisma.SortOrder
   price?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -363,6 +383,7 @@ export type CategoryAvgOrderByAggregateInput = {
 
 export type CategoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  categoryType?: Prisma.SortOrder
   price?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -372,6 +393,7 @@ export type CategoryMaxOrderByAggregateInput = {
 
 export type CategoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  categoryType?: Prisma.SortOrder
   price?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -425,6 +447,10 @@ export type CategoryUncheckedUpdateManyWithoutTutorNestedInput = {
   deleteMany?: Prisma.CategoryScalarWhereInput | Prisma.CategoryScalarWhereInput[]
 }
 
+export type EnumCategoryTypeFieldUpdateOperationsInput = {
+  set?: $Enums.CategoryType
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -435,6 +461,7 @@ export type FloatFieldUpdateOperationsInput = {
 
 export type CategoryCreateWithoutTutorInput = {
   id?: string
+  categoryType: $Enums.CategoryType
   price: number
   description?: string | null
   createdAt?: Date | string
@@ -443,6 +470,7 @@ export type CategoryCreateWithoutTutorInput = {
 
 export type CategoryUncheckedCreateWithoutTutorInput = {
   id?: string
+  categoryType: $Enums.CategoryType
   price: number
   description?: string | null
   createdAt?: Date | string
@@ -480,6 +508,7 @@ export type CategoryScalarWhereInput = {
   OR?: Prisma.CategoryScalarWhereInput[]
   NOT?: Prisma.CategoryScalarWhereInput | Prisma.CategoryScalarWhereInput[]
   id?: Prisma.StringFilter<"Category"> | string
+  categoryType?: Prisma.EnumCategoryTypeFilter<"Category"> | $Enums.CategoryType
   price?: Prisma.FloatFilter<"Category"> | number
   description?: Prisma.StringNullableFilter<"Category"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Category"> | Date | string
@@ -489,6 +518,7 @@ export type CategoryScalarWhereInput = {
 
 export type CategoryCreateManyTutorInput = {
   id?: string
+  categoryType: $Enums.CategoryType
   price: number
   description?: string | null
   createdAt?: Date | string
@@ -497,6 +527,7 @@ export type CategoryCreateManyTutorInput = {
 
 export type CategoryUpdateWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryType?: Prisma.EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -505,6 +536,7 @@ export type CategoryUpdateWithoutTutorInput = {
 
 export type CategoryUncheckedUpdateWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryType?: Prisma.EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -513,6 +545,7 @@ export type CategoryUncheckedUpdateWithoutTutorInput = {
 
 export type CategoryUncheckedUpdateManyWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryType?: Prisma.EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -523,6 +556,7 @@ export type CategoryUncheckedUpdateManyWithoutTutorInput = {
 
 export type CategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  categoryType?: boolean
   price?: boolean
   description?: boolean
   createdAt?: boolean
@@ -533,6 +567,7 @@ export type CategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 
 export type CategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  categoryType?: boolean
   price?: boolean
   description?: boolean
   createdAt?: boolean
@@ -543,6 +578,7 @@ export type CategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 
 export type CategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  categoryType?: boolean
   price?: boolean
   description?: boolean
   createdAt?: boolean
@@ -553,6 +589,7 @@ export type CategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 
 export type CategorySelectScalar = {
   id?: boolean
+  categoryType?: boolean
   price?: boolean
   description?: boolean
   createdAt?: boolean
@@ -560,7 +597,7 @@ export type CategorySelectScalar = {
   tutorId?: boolean
 }
 
-export type CategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "price" | "description" | "createdAt" | "updatedAt" | "tutorId", ExtArgs["result"]["category"]>
+export type CategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categoryType" | "price" | "description" | "createdAt" | "updatedAt" | "tutorId", ExtArgs["result"]["category"]>
 export type CategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tutor?: boolean | Prisma.TutorProfilesDefaultArgs<ExtArgs>
 }
@@ -578,6 +615,7 @@ export type $CategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    categoryType: $Enums.CategoryType
     price: number
     description: string | null
     createdAt: Date
@@ -1008,6 +1046,7 @@ export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends runtime
  */
 export interface CategoryFieldRefs {
   readonly id: Prisma.FieldRef<"Category", 'String'>
+  readonly categoryType: Prisma.FieldRef<"Category", 'CategoryType'>
   readonly price: Prisma.FieldRef<"Category", 'Float'>
   readonly description: Prisma.FieldRef<"Category", 'String'>
   readonly createdAt: Prisma.FieldRef<"Category", 'DateTime'>

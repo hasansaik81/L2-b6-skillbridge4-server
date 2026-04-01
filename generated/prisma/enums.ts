@@ -34,3 +34,13 @@ export const Status = {
 } as const
 
 export type Status = (typeof Status)[keyof typeof Status]
+
+
+export const CategoryType = {
+  DAY_CARE: 'DAY_CARE',
+  NIGHT_CARE: 'NIGHT_CARE',
+  RESIDENTIAL: 'RESIDENTIAL',
+  ONLINE: 'ONLINE'
+} as const
+
+export type CategoryType = (typeof CategoryType)[keyof typeof CategoryType]
