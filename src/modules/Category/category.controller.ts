@@ -49,13 +49,55 @@ const getAllCategory=async (req:Request,res:Response)=>{
       data:null,
     })
   };
-}
+};
 
 
+const getSingleCategory=async(req:Request,res:Response)=>{
+  try{
+  
+    const result=await CategoryService.getSingleCategoryIntoDB(req.params?.id as string);
+    sendResponse(res,{
+      statusCode:201,
+      success:true,
+      message:"Tutor Category retrived Successfully.",
+      data:result,
+    });
+  }catch(error:any){
+    console.error(error)
+    sendResponse(res,{
+      statusCode:400,
+      success:false,
+      message:error?.message||"Something went wrong",
+      data:null,
+    });
+  }
+};
+
+const getPublicAllCategory=async(req:Request,res:Response)=>{
+  try{
+    const result =await CategoryService.getPublicAllCategoryIntoDB();
+  sendResponse(res,{
+    statusCode:201,
+    success:true,
+    message:"Public Categories retrieved successfully.",
+    data:result,
+  })
+  }catch(error:any){
+    console.error(error)
+    sendResponse(res,{
+      statusCode:400,
+      success:false,
+      message:error?.message||"Something went wrong",
+      data:null,
+    });
+  }
+};
 
 
 
 export const CategoryController = {
     createCategory,
-    getAllCategory
+    getAllCategory,
+    getSingleCategory,
+    getPublicAllCategory,
     };

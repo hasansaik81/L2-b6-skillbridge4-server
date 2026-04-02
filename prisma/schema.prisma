@@ -63,6 +63,7 @@ model User {
  @@index([status])
   @@map("users")
  
+  bookings Booking[] @relation("StudentBookings")
 }
 
 
@@ -84,6 +85,7 @@ model TutorProfiles{
   @@map("tutorProfile")
   
   
+  bookings Booking[] @relation("TutorBookings")
 }
 
 model Category {
@@ -98,5 +100,27 @@ model Category {
   tutor        TutorProfiles @relation(fields: [tutorId],references: [id])
   
   @@map("category")
+  bookings Booking[]
 }
 
+
+model Booking {
+  id               String   @id @default(uuid())
+  studentId        String
+  tutorId          String
+  categoryId       String
+  startDate        DateTime
+  endDate          DateTime
+  totalPrice       Float
+  status      BookingStatus @default(PENDING)
+  note        String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  student     User @relation("StudentBookings", fields: [studentId], references: [id])
+  tutor       TutorProfiles @relation("TutorBookings", fields: [tutorId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  @@map("bookings")
+}

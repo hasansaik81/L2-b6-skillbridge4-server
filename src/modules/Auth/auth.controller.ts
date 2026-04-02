@@ -43,19 +43,33 @@ const loginUser = async (req: Request, res: Response) => {
     });
   }
 };
-// const getMe = async (userId: string) => {
-//   return prisma.user.findUnique({
-//     where: { id: userId },
-//     include: {
-//       tutorProfile: true,
-//     },
-//   });
-// };
-    
+
+  const getMe = async (req: Request, res: Response) => {
+  try {
+    const result = await AuthService.getMe(req.user?.id as string);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "User retrieved successfully",
+      data: result,
+    });
+
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 500,
+      success: false,
+      message: error?.message || "Something went wrong",
+      data: null,
+    });
+  }
+};
+
 
 
 export const AuthController = {
     // Add controller methods here
     createUser,
-    loginUser
+    loginUser,
+    getMe
     };

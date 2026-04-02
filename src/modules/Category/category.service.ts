@@ -44,15 +44,51 @@ const getAllCategoryIntoDB=async(userId:string)=>{
   return result;
 };
 
-// const getSingleSitterIntoDB=async(petId:string)=>{
-//   const result = await prisma.
-// }
+const getSingleCategoryIntoDB=async(tutorId:string)=>{
+  const result = await prisma.tutorProfiles.findUnique({
+    where:{
+      id:tutorId,
+    },
+  });
+  return result;
+}
 
-// const getSingleServiceIntoDB=async()
 
+const getPublicAllCategoryIntoDB=async()=>{
+  const result = await prisma.category.findMany({
+    include:{
+      tutor:{
+        include:{
+          user:true
+        }
+      }
+    }
+  });
+  return result;
+};
+
+const getPublicSingleCategoryIntoDB=async(categoryId:string)=>{
+  const result = await prisma.category.findUnique({
+    where:{
+      id:categoryId
+    },
+    include:{
+      tutor:{
+        include:{
+          user:true
+        }
+      }
+    }
+  });
+  return result;
+};
 
 
 export const CategoryService = {
     createCategoryIntoDB,
-    getAllCategoryIntoDB
-    };
+    getAllCategoryIntoDB,
+    getSingleCategoryIntoDB,
+    getPublicAllCategoryIntoDB,
+    getPublicSingleCategoryIntoDB
+};
+  
