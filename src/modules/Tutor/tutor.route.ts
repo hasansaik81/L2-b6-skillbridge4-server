@@ -5,7 +5,8 @@ import { TutorController } from "./tutor.controller";
 const router= express.Router()
 
 router.post("/",auth(UserRole.tutor),TutorController.createTutor);
-router.get("/",auth(UserRole.tutor),TutorController.getAllTutor)
+router.get("/",auth(UserRole.tutor),TutorController.getAllTutor);
+router.get("/:id",auth(UserRole.tutor),TutorController.getSingleTutor);
 
 
 export const TutorRoutes= router;

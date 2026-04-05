@@ -52,7 +52,7 @@ const getAllTutor=async (req:Request,res:Response)=>{
 
 const getSingleTutor=async(req:Request,res:Response)=>{
   try{
-    // const tutorId=req.params.id;
+  
     const result=await TutorService.getSingleSitterIntoDB(req.params?.id as string);
     sendResponse(res,{
       statusCode:201,

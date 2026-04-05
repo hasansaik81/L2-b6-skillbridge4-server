@@ -47,7 +47,7 @@ const getAllCategoryIntoDB=async(userId:string)=>{
 const getSingleCategoryIntoDB=async(tutorId:string)=>{
   const result = await prisma.tutorProfiles.findUnique({
     where:{
-      id:tutorId,
+      id:tutorId
     },
   });
   return result;

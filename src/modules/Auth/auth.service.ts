@@ -44,17 +44,18 @@ return{
 }
 }
 
-// const getMe = async (userId: string) => {
-//   return prisma.user.findUnique({
-//     where: { id: userId },
-//     include: {
-//       tutorProfile: true,
-//     },
-//   });
-// };
+const getMe = async (userId: string) => {
+  return prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      tutorProfile: true,
+    },
+  });
+};
 
 export const AuthService = {
     createUserIntoDb,
-    loginUserIntoDb
+    loginUserIntoDb,
+      getMe
 
     };

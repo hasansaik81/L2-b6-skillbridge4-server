@@ -93,6 +93,25 @@ const getPublicAllCategory=async(req:Request,res:Response)=>{
   }
 };
 
+const getPublicSingleCategory=async(req:Request,res:Response)=>{
+  try{
+    const result =await CategoryService.getPublicSingleCategoryIntoDB(req.params?.id as string);
+    sendResponse(res,{
+      statusCode:201,
+      success:true,
+      message:"Public Category retrieved successfully.",
+      data:result,
+    });
+  }catch(error:any){
+    console.error(error)
+    sendResponse(res,{
+      statusCode:400,
+      success:false,
+      message:error?.message||"Something went wrong",
+      data:null,
+    });
+  }
+};
 
 
 export const CategoryController = {
@@ -100,4 +119,6 @@ export const CategoryController = {
     getAllCategory,
     getSingleCategory,
     getPublicAllCategory,
-    };
+    getPublicSingleCategory,
+    
+};

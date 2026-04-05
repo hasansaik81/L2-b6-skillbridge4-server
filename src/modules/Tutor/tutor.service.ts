@@ -47,16 +47,17 @@ const getAllTutorIntoDB=async(userId:string)=>{
 const getSingleSitterIntoDB=async(tutorId:string)=>{
   const result = await prisma.tutorProfiles.findUnique({
     where:{
-      tutorId:tutorId
+      id:tutorId
     },
-    include:{
-      user:true
-    }
+    // include:{
+    //   user:true
+    // }
   });
   return result;
 }
 
 export const TutorService={
   createTutorIntoDB,
-  getAllTutorIntoDB
+  getAllTutorIntoDB,
+  getSingleSitterIntoDB
 }

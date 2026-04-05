@@ -57,13 +57,13 @@ model User {
   status       Status   @default(ACTIVE)
 
   tutorProfile  TutorProfiles?
-
- 
+  
+  bookings Booking[]
 
  @@index([status])
   @@map("users")
  
-  bookings Booking[] @relation("StudentBookings")
+  
 }
 
 
@@ -82,10 +82,13 @@ model TutorProfiles{
   user    User @relation(fields: [tutorId],references: [id])
    categories Category[]
   // Relations
+   
+  bookings Booking[]
+
   @@map("tutorProfile")
   
   
-  bookings Booking[] @relation("TutorBookings")
+ 
 }
 
 model Category {
@@ -118,9 +121,12 @@ model Booking {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  student     User @relation("StudentBookings", fields: [studentId], references: [id])
-  tutor       TutorProfiles @relation("TutorBookings", fields: [tutorId], references: [id])
+  student     User @relation( fields: [studentId], references: [id])
+  tutor       TutorProfiles @relation( fields: [tutorId], references: [id])
   category    Category @relation(fields: [categoryId], references: [id])
 
   @@map("bookings")
+  
 }
+
+
