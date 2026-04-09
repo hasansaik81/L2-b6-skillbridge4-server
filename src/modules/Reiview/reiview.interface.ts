@@ -1,3 +1,5 @@
-export type TReiview = {
-    // Add interface properties here
-    };
+export interface IReviewPayload {
+  bookingId: string;
+  rating: number;
+  comment?: string;
+}

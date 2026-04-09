@@ -1,5 +1,18 @@
-import express from 'express';
+import express from "express";
+import { ReviewController } from "./reiview.controller";
+import auth, { UserRole } from "../../middlewares/auth";
+
 
 const router = express.Router();
 
-export const ReiviewRoutes = router;
+// Student only
+router.post(
+  "/",
+  auth(UserRole.student),
+  ReviewController.createReview
+);
+
+// Public - view tutor reviews
+router.get("/tutor/:tutorId", ReviewController.getTutorReviews);
+
+export const ReviewRoutes= router;

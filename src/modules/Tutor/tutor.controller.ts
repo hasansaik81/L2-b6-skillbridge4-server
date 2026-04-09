@@ -72,8 +72,32 @@ const getSingleTutor=async(req:Request,res:Response)=>{
 
 }
 
+const updateBookingStatus=async(req:Request,res:Response)=>{
+  try {
+    const result = await TutorService.updateBookingStatusIntoDB(
+      req.body.status,
+      req.params?.id as string
+    );
+    sendResponse(res,{
+      statusCode:200,
+      success:true,
+      message:"Booking status updated successfully",
+      data:result,
+    });
+  } catch (error:any) {
+    sendResponse(res,{
+      statusCode:400,
+      success:false,
+      message:error?.message||"Something went wrong",
+      data:null,
+    })
+  }
+}
+  
+
 export const TutorController={
     createTutor,
     getAllTutor,
-    getSingleTutor
+    getSingleTutor,
+    updateBookingStatus
 }

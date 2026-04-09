@@ -64,16 +64,19 @@ model User {
   @@map("users")
  
   
+  reviews Review[]
 }
 
 
 model TutorProfiles{
   id          String   @id @default(uuid())
-  
+  // userId      String   @unique
   bio         String
   hourlyRate  Float?
   experience  Int      // years of experience
   education   String?
+  avgRating   Decimal @default(0) @db.Decimal(2, 1) 
+  totalReviews Int @default(0)// e.g., 4.5
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
     
@@ -82,13 +85,11 @@ model TutorProfiles{
   user    User @relation(fields: [tutorId],references: [id])
    categories Category[]
   // Relations
+     bookings Booking[]
+    reviews Review[]
    
-  bookings Booking[]
-
   @@map("tutorProfile")
   
-  
- 
 }
 
 model Category {
@@ -124,9 +125,31 @@ model Booking {
   student     User @relation( fields: [studentId], references: [id])
   tutor       TutorProfiles @relation( fields: [tutorId], references: [id])
   category    Category @relation(fields: [categoryId], references: [id])
+  review  Review?
 
   @@map("bookings")
   
 }
+
+model Review {
+  id          String   @id @default(uuid())
+  bookingId   String   @unique
+  studentId   String
+  tutorId     String
+  review       String
+  rating      Decimal  @db.Decimal(2, 1) // e.g., 4.5
+  comment     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  student     User @relation( fields: [studentId], references: [id])
+  tutor       TutorProfiles @relation( fields: [tutorId], references: [id],onDelete: Cascade)
+  booking     Booking @relation(fields: [bookingId],references: [id],onDelete: Cascade)
+
+@@index([studentId])
+@@index([tutorId])
+ @@map("reviews")
+}
+
 
 
