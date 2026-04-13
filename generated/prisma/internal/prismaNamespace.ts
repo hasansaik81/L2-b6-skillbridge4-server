@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   TutorProfiles: 'TutorProfiles',
+  Subjects: 'Subjects',
   Category: 'Category',
   Booking: 'Booking',
   Review: 'Review'
@@ -404,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "tutorProfiles" | "category" | "booking" | "review"
+    modelProps: "user" | "tutorProfiles" | "subjects" | "category" | "booking" | "review"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TutorProfilesCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TutorProfilesCountAggregateOutputType> | number
+        }
+      }
+    }
+    Subjects: {
+      payload: Prisma.$SubjectsPayload<ExtArgs>
+      fields: Prisma.SubjectsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SubjectsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SubjectsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>
+        }
+        findFirst: {
+          args: Prisma.SubjectsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SubjectsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>
+        }
+        findMany: {
+          args: Prisma.SubjectsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>[]
+        }
+        create: {
+          args: Prisma.SubjectsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>
+        }
+        createMany: {
+          args: Prisma.SubjectsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SubjectsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>[]
+        }
+        delete: {
+          args: Prisma.SubjectsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>
+        }
+        update: {
+          args: Prisma.SubjectsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>
+        }
+        deleteMany: {
+          args: Prisma.SubjectsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SubjectsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SubjectsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>[]
+        }
+        upsert: {
+          args: Prisma.SubjectsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubjectsPayload>
+        }
+        aggregate: {
+          args: Prisma.SubjectsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubjects>
+        }
+        groupBy: {
+          args: Prisma.SubjectsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubjectsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SubjectsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubjectsCountAggregateOutputType> | number
         }
       }
     }
@@ -847,6 +922,17 @@ export const TutorProfilesScalarFieldEnum = {
 } as const
 
 export type TutorProfilesScalarFieldEnum = (typeof TutorProfilesScalarFieldEnum)[keyof typeof TutorProfilesScalarFieldEnum]
+
+
+export const SubjectsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  categoryId: 'categoryId'
+} as const
+
+export type SubjectsScalarFieldEnum = (typeof SubjectsScalarFieldEnum)[keyof typeof SubjectsScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {
@@ -1153,6 +1239,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   tutorProfiles?: Prisma.TutorProfilesOmit
+  subjects?: Prisma.SubjectsOmit
   category?: Prisma.CategoryOmit
   booking?: Prisma.BookingOmit
   review?: Prisma.ReviewOmit

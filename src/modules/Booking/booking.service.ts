@@ -227,7 +227,7 @@ const createBookingIntoDB = async (
 ) => {
   return await prisma.$transaction(async (tx) => {
 
-    // 1️⃣ Check Student
+    //  Check Student
     const student = await tx.user.findUnique({
       where: { id: userId },
     });
@@ -238,7 +238,7 @@ const createBookingIntoDB = async (
       throw new Error("Only students can book tutors");
     }
 
-    // 2️⃣ Check Tutor (IMPORTANT FIX)
+    //  Check Tutor (IMPORTANT FIX)
     const tutorProfile = await tx.tutorProfiles.findUnique({
       where: { id: payload.tutorId }, // tutorId = userId
       include: { user: true },
@@ -252,7 +252,7 @@ const createBookingIntoDB = async (
       throw new Error("Selected user is not a tutor");
     }
 
-    // 3️⃣ Check Category
+    //  Check Category
     const category = await tx.category.findUnique({
       where: { id: payload.categoryId },
     });
@@ -261,7 +261,7 @@ const createBookingIntoDB = async (
       throw new Error("Category not found");
     }
 
-    // 4️⃣ Validate Time
+    //  Validate Time
     const startTime = new Date(payload.startDate).getTime();
     const endTime = new Date(payload.endDate).getTime();
 
@@ -269,7 +269,7 @@ const createBookingIntoDB = async (
       throw new Error("End date must be after start date");
     }
 
-    // 5️⃣ Overlap check (FIXED)
+    //  Overlap check (FIXED)
     const existingBooking = await tx.booking.findFirst({
       where: {
         tutorId: tutorProfile.user.id,
@@ -290,14 +290,14 @@ const createBookingIntoDB = async (
       throw new Error("Tutor is already booked at this time");
     }
 
-    // 6️⃣ Calculate Price
+    //  Calculate Price
     const durationInHour = (endTime - startTime) / (1000 * 60 * 60);
     const totalPrice = durationInHour * category.price;
 
-    // 7️⃣ Create Booking
+    //  Create Booking
     const booking = await tx.booking.create({
       data: {
-        studentId: userId, // always from token
+        studentId: userId,
         tutorId: tutorProfile.id,
         categoryId: payload.categoryId,
         startDate: payload.startDate,

@@ -40,7 +40,8 @@ const loginUserIntoDb=async(payload:any)=>{
  }
 const token = jwt.sign(userData , secret ,{expiresIn:"1d"})
 return{
-    token,user
+    token,
+    user,
 }
 }
 

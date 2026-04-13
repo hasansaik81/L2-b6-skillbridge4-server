@@ -1,3 +1,6 @@
-export type TCategory = {
-    // Add interface properties here
-    };
+type ICategoryPayload = {
+  name: string;
+  categoryType: string;
+  price: number;
+  tutor: string;
+};

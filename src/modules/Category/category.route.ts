@@ -9,6 +9,8 @@ router.get("/public/:id",CategoryController.getPublicSingleCategory);
 
 router.post("/",auth(UserRole.tutor),CategoryController.createCategory)
 router.get("/",auth(UserRole.tutor),CategoryController.getAllCategory);
-router.get("/:id",auth(UserRole.tutor),CategoryController.getSingleCategory);
-
+router.get("/:id",auth(UserRole.student),CategoryController.getSingleCategory);
+router.post("/subject",auth(UserRole.admin),CategoryController.createSubject);
+router.put("/subject/:id",auth(UserRole.admin),CategoryController.updateSubject);
+router.delete("/subject/:id",auth(UserRole.admin),CategoryController.deleteSubject);
 export const CategoryRoutes = router;

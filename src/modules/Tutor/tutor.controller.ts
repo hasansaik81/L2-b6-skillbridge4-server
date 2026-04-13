@@ -3,7 +3,7 @@ import { TutorService } from "./tutor.service";
 import sendResponse from "../../utils/sendResponse";
 
 const createTutor=async(req:Request, res:Response)=>{
-  console.log("controller", req.user)
+
     try{
       const result=await TutorService.createTutorIntoDB(
         req.body,

@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import { AuthService } from "./auth.service";
 import sendResponse from "../../utils/sendResponse";
 
-const createUser=async(req:Request,res:Response,next:NextFunction)=>{
+const createUser=async(req:Request,res:Response, next:NextFunction)=>{
    
     try{
-  const result=await AuthService.createUserIntoDb(req.body)
+  const result= await AuthService.createUserIntoDb(req.body)
   sendResponse(res,{
     statusCode:201,
     success:true,
@@ -13,12 +13,19 @@ const createUser=async(req:Request,res:Response,next:NextFunction)=>{
     data:result,
   });
     }catch(error:any) {
-       next(error)
+      // sendResponse(res,{
+      //   statusCode:400,
+      //   success:false,
+      //    message:error?.message || "Something went wrong",
+      //   data:null,
+      // });
+      next(error);
 
     }
-}
+};
 
 const loginUser = async (req: Request, res: Response) => {
+  console.log("LOGIN BODY:", req.body);
   try {
     const result = await AuthService.loginUserIntoDb(req.body);
 
@@ -36,7 +43,7 @@ const loginUser = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     sendResponse(res, {
-      statusCode: 500,
+      statusCode: 400,
       success: false,
       message: error?.message || "Something went wrong",
       data: null,
@@ -49,7 +56,7 @@ const loginUser = async (req: Request, res: Response) => {
     const result = await AuthService.getMe(req.user?.id as string);
 
     sendResponse(res, {
-      statusCode: 200,
+      statusCode: 201,
       success: true,
       message: "User retrieved successfully",
       data: result,
@@ -57,7 +64,7 @@ const loginUser = async (req: Request, res: Response) => {
 
   } catch (error: any) {
     sendResponse(res, {
-      statusCode: 500,
+      statusCode: 400,
       success: false,
       message: error?.message || "Something went wrong",
       data: null,

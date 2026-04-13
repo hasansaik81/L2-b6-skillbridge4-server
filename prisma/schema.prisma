@@ -70,7 +70,7 @@ model User {
 
 model TutorProfiles{
   id          String   @id @default(uuid())
-  // userId      String   @unique
+  // userId     String @unique
   bio         String
   hourlyRate  Float?
   experience  Int      // years of experience
@@ -88,8 +88,26 @@ model TutorProfiles{
      bookings Booking[]
     reviews Review[]
    
+   
   @@map("tutorProfile")
   
+  
+}
+
+
+model  Subject {
+  id          String   @id @default(uuid())
+  name        String @unique
+  description String?
+  createdAt   DateTime @default(now())
+  
+
+  categoryId   String
+  category    Category @relation(fields: [categoryId],references: [id])
+
+  
+  
+  @@map("subjects")
 }
 
 model Category {
@@ -102,9 +120,14 @@ model Category {
 
   tutorId      String
   tutor        TutorProfiles @relation(fields: [tutorId],references: [id])
+   
+    bookings Booking[]
+    subjects Subject[]
+  
   
   @@map("category")
-  bookings Booking[]
+ 
+  
 }
 
 

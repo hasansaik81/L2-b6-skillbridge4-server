@@ -161,7 +161,7 @@ const createReview = async (
   payload: IReviewPayload
 ) => {
   return prisma.$transaction(async (tx) => {
-    // 1️⃣ Find booking
+    //  Find booking
     const booking = await tx.booking.findUnique({
       where: { id: payload.bookingId },
     });
@@ -170,17 +170,17 @@ const createReview = async (
       throw new Error("Booking not found");
     }
 
-    // 2️⃣ Ensure booking belongs to student
+    //  Ensure booking belongs to student
     if (booking.studentId !== studentId) {
       throw new Error("Unauthorized");
     }
 
-    // 3️⃣ Ensure booking completed
+    //  Ensure booking completed
     if (booking.status !== BookingStatus.COMPLETED) {
       throw new Error("Can only review completed sessions");
     }
 
-    // 4️⃣ Check if already reviewed
+    //  Check if already reviewed
     const existingReview = await tx.review.findUnique({
       where: { bookingId: payload.bookingId },
     });
@@ -189,7 +189,7 @@ const createReview = async (
       throw new Error("Review already submitted");
     }
 
-    // 5️⃣ Create review
+    //  Create review
     const review = await tx.review.create({
       data: {
         rating: payload.rating,
@@ -201,17 +201,17 @@ const createReview = async (
       },
     });
 
-    // 6️⃣ Recalculate tutor rating
+    //  Recalculate tutor rating
     const reviews = await tx.review.findMany({
       where: { tutorId: booking.tutorId },
     });
 
     const totalReviews = reviews.length;
     const avgRating =
-      reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
+      reviews.reduce((sum: number, r) => sum + Number(r.rating), 0) /
       totalReviews;
 
-    // 7️⃣ Update TutorProfile
+    //  Update TutorProfile
     await tx.tutorProfiles.update({
       where: { id: booking.tutorId },
       data: {
@@ -240,6 +240,8 @@ const getTutorReviews = async (tutorUserId: string) => {
     orderBy: { createdAt: "desc" },
   });
 };
+
+
 
 export const ReviewService = {
   createReview,
