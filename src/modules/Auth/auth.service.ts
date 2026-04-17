@@ -1,6 +1,8 @@
 import { prisma } from "../../lib/prisma";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
+
 export const secret = "iadmcttoken";
 
 const createUserIntoDb=async(payload:any)=>{
@@ -12,7 +14,6 @@ data:{...payload,password:hashPassword},
 const {password, ...newResult}=result;
 return  newResult
 }
-
 
 const loginUserIntoDb=async(payload:any)=>{
  const user=await prisma.user.findUnique({
@@ -38,7 +39,7 @@ const loginUserIntoDb=async(payload:any)=>{
     status:user.status,
     email:user.email
  }
-const token = jwt.sign(userData , secret ,{expiresIn:"1d"})
+const token = jwt.sign(userData , secret ,{expiresIn:"5d"})
 return{
     token,
     user,

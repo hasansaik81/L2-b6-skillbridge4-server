@@ -3,57 +3,34 @@ import { CategoryService } from "./category.service";
 import sendResponse from "../../utils/sendResponse";
 
 
-// const createCategory=async(req:Request, res:Response)=>{
+const createCategory=async(req:Request, res:Response)=>{
  
-//     try{
-//       const result = await CategoryService.createCategoryIntoDB(
-//         req.body,
-//         req.user?.id,
-//       );
-//       sendResponse(res,{
-//         statusCode:201,
-//         success:true,
-//         message:"Tutor Category  Created Successfully ",
-//         data:result,
+    try{
+      const result = await CategoryService.createCategoryIntoDB(
+        req.body,
+        req.user?.id,
+      );
+      sendResponse(res,{
+        statusCode:201,
+        success:true,
+        message:"Tutor Category  Created Successfully ",
+        data:result,
 
-//       });
-//     }catch (error:any){
+      });
+    }catch (error:any){
       
-//           sendResponse(res,{
-//             statusCode:400,
-//             success:false,
-//             message:error?.message||"Something went wron!!",
-//             data:null,
-//           });
-//     }
-// };
-
-
-
-
-export const createCategoryController = async (req: Request, res: Response) => {
-  try {
-    const payload = req.body;
-
-    const result = await createCategory(payload);
-
-    sendResponse(res, {
-      statusCode: 201,
-      success: true,
-      message: "Category created successfully",
-      data: result
-    });
-
-  } catch (error: any) {
-    sendResponse(res, {
-      statusCode: 400,
-      success: false,
-      message: error.message || "Something went wrong",
-      data: null
-    });
-  }
-
+          sendResponse(res,{
+            statusCode:500,
+            success:false,
+            message:error?.message||"Something went wron!!",
+            data:null,
+          });
+    }
 };
+
+
+
+
 
 const getAllCategory=async (req:Request,res:Response)=>{
   try{
@@ -210,7 +187,7 @@ export const CategoryController = {
     deleteSubject
 };
     
-function createCategory(payload: any) {
-  throw new Error("Function not implemented.");
-}
+
+
+
 

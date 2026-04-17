@@ -19,7 +19,7 @@ const routerManger=[
     },
 
     {
-        path:"/categories",
+        path:"/category",
         route:CategoryRoutes,
     },
     {

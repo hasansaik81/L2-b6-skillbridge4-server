@@ -25,7 +25,7 @@ const createUser=async(req:Request,res:Response, next:NextFunction)=>{
 };
 
 const loginUser = async (req: Request, res: Response) => {
-  console.log("LOGIN BODY:", req.body);
+ 
   try {
     const result = await AuthService.loginUserIntoDb(req.body);
 
@@ -43,7 +43,7 @@ const loginUser = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     sendResponse(res, {
-      statusCode: 400,
+      statusCode: 500,
       success: false,
       message: error?.message || "Something went wrong",
       data: null,
@@ -64,7 +64,7 @@ const loginUser = async (req: Request, res: Response) => {
 
   } catch (error: any) {
     sendResponse(res, {
-      statusCode: 400,
+      statusCode: 500,
       success: false,
       message: error?.message || "Something went wrong",
       data: null,
