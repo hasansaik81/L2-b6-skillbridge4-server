@@ -50,10 +50,10 @@ export type User = Prisma.UserModel
  */
 export type TutorProfiles = Prisma.TutorProfilesModel
 /**
- * Model Subjects
+ * Model Subject
  * 
  */
-export type Subjects = Prisma.SubjectsModel
+export type Subject = Prisma.SubjectModel
 /**
  * Model Category
  * 
@@ -69,3 +69,8 @@ export type Booking = Prisma.BookingModel
  * 
  */
 export type Review = Prisma.ReviewModel
+/**
+ * Model TutorSubject
+ * 
+ */
+export type TutorSubject = Prisma.TutorSubjectModel

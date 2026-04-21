@@ -37,7 +37,7 @@ import sendResponse from "../../utils/sendResponse";
 
 const createBooking = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id; // auth middleware থেকে আসবে
+    const userId = req.user?.id; // comming from auth middleware
 
     if (!userId) {
       throw new Error("Unauthorized");

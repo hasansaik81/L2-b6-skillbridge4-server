@@ -19,10 +19,12 @@ const createTutor=async(req:Request, res:Response)=>{
     }catch (error:any){
       
           sendResponse(res,{
-            statusCode:400,
+            statusCode:500,
             success:false,
             message:error?.message||"Something went wron!!",
             data:null,
+        
+            
           });
     }
 };
@@ -72,6 +74,39 @@ const getSingleTutor=async(req:Request,res:Response)=>{
 
 }
 
+
+
+const updateTutorSubjects = async (req: Request, res: Response) => {
+  try {
+    // এখানে 'as any' অথবা নির্দিষ্ট টাইপ দিয়ে কাস্ট করুন
+    const user = req.user as any; 
+    const { subjectIds } = req.body;
+
+    if (!user) {
+        throw new Error("Unauthorized access");
+    }
+
+    const result = await TutorService.updateTutorSubjects(subjectIds, user);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Tutor subjects updated successfully!',
+      data: result,
+    });
+    
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 500,
+      success: false,
+      message: error.message || 'Something went wrong',
+      data: null,
+    });
+  }
+};
+
+
+
 const updateBookingStatus=async(req:Request,res:Response)=>{
   try {
     const result = await TutorService.updateBookingStatusIntoDB(
@@ -99,5 +134,6 @@ export const TutorController={
     createTutor,
     getAllTutor,
     getSingleTutor,
+    updateTutorSubjects,
     updateBookingStatus
 }

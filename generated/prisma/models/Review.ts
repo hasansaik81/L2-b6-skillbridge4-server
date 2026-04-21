@@ -39,7 +39,6 @@ export type ReviewMinAggregateOutputType = {
   bookingId: string | null
   studentId: string | null
   tutorId: string | null
-  review: string | null
   rating: runtime.Decimal | null
   comment: string | null
   createdAt: Date | null
@@ -51,7 +50,6 @@ export type ReviewMaxAggregateOutputType = {
   bookingId: string | null
   studentId: string | null
   tutorId: string | null
-  review: string | null
   rating: runtime.Decimal | null
   comment: string | null
   createdAt: Date | null
@@ -63,7 +61,6 @@ export type ReviewCountAggregateOutputType = {
   bookingId: number
   studentId: number
   tutorId: number
-  review: number
   rating: number
   comment: number
   createdAt: number
@@ -85,7 +82,6 @@ export type ReviewMinAggregateInputType = {
   bookingId?: true
   studentId?: true
   tutorId?: true
-  review?: true
   rating?: true
   comment?: true
   createdAt?: true
@@ -97,7 +93,6 @@ export type ReviewMaxAggregateInputType = {
   bookingId?: true
   studentId?: true
   tutorId?: true
-  review?: true
   rating?: true
   comment?: true
   createdAt?: true
@@ -109,7 +104,6 @@ export type ReviewCountAggregateInputType = {
   bookingId?: true
   studentId?: true
   tutorId?: true
-  review?: true
   rating?: true
   comment?: true
   createdAt?: true
@@ -208,7 +202,6 @@ export type ReviewGroupByOutputType = {
   bookingId: string
   studentId: string
   tutorId: string
-  review: string
   rating: runtime.Decimal
   comment: string | null
   createdAt: Date
@@ -243,14 +236,13 @@ export type ReviewWhereInput = {
   bookingId?: Prisma.StringFilter<"Review"> | string
   studentId?: Prisma.StringFilter<"Review"> | string
   tutorId?: Prisma.StringFilter<"Review"> | string
-  review?: Prisma.StringFilter<"Review"> | string
   rating?: Prisma.DecimalFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
   student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tutor?: Prisma.XOR<Prisma.TutorProfilesScalarRelationFilter, Prisma.TutorProfilesWhereInput>
-  booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
 }
 
 export type ReviewOrderByWithRelationInput = {
@@ -258,14 +250,13 @@ export type ReviewOrderByWithRelationInput = {
   bookingId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   tutorId?: Prisma.SortOrder
-  review?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  booking?: Prisma.BookingOrderByWithRelationInput
   student?: Prisma.UserOrderByWithRelationInput
   tutor?: Prisma.TutorProfilesOrderByWithRelationInput
-  booking?: Prisma.BookingOrderByWithRelationInput
 }
 
 export type ReviewWhereUniqueInput = Prisma.AtLeast<{
@@ -276,14 +267,13 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   studentId?: Prisma.StringFilter<"Review"> | string
   tutorId?: Prisma.StringFilter<"Review"> | string
-  review?: Prisma.StringFilter<"Review"> | string
   rating?: Prisma.DecimalFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
   student?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tutor?: Prisma.XOR<Prisma.TutorProfilesScalarRelationFilter, Prisma.TutorProfilesWhereInput>
-  booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
 }, "id" | "bookingId">
 
 export type ReviewOrderByWithAggregationInput = {
@@ -291,7 +281,6 @@ export type ReviewOrderByWithAggregationInput = {
   bookingId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   tutorId?: Prisma.SortOrder
-  review?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -311,7 +300,6 @@ export type ReviewScalarWhereWithAggregatesInput = {
   bookingId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   studentId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   tutorId?: Prisma.StringWithAggregatesFilter<"Review"> | string
-  review?: Prisma.StringWithAggregatesFilter<"Review"> | string
   rating?: Prisma.DecimalWithAggregatesFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
@@ -320,14 +308,13 @@ export type ReviewScalarWhereWithAggregatesInput = {
 
 export type ReviewCreateInput = {
   id?: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  booking: Prisma.BookingCreateNestedOneWithoutReviewInput
   student: Prisma.UserCreateNestedOneWithoutReviewsInput
   tutor: Prisma.TutorProfilesCreateNestedOneWithoutReviewsInput
-  booking: Prisma.BookingCreateNestedOneWithoutReviewInput
 }
 
 export type ReviewUncheckedCreateInput = {
@@ -335,7 +322,6 @@ export type ReviewUncheckedCreateInput = {
   bookingId: string
   studentId: string
   tutorId: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -344,14 +330,13 @@ export type ReviewUncheckedCreateInput = {
 
 export type ReviewUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking?: Prisma.BookingUpdateOneRequiredWithoutReviewNestedInput
   student?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
   tutor?: Prisma.TutorProfilesUpdateOneRequiredWithoutReviewsNestedInput
-  booking?: Prisma.BookingUpdateOneRequiredWithoutReviewNestedInput
 }
 
 export type ReviewUncheckedUpdateInput = {
@@ -359,7 +344,6 @@ export type ReviewUncheckedUpdateInput = {
   bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -371,7 +355,6 @@ export type ReviewCreateManyInput = {
   bookingId: string
   studentId: string
   tutorId: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -380,7 +363,6 @@ export type ReviewCreateManyInput = {
 
 export type ReviewUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -392,7 +374,6 @@ export type ReviewUncheckedUpdateManyInput = {
   bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -419,7 +400,6 @@ export type ReviewCountOrderByAggregateInput = {
   bookingId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   tutorId?: Prisma.SortOrder
-  review?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -435,7 +415,6 @@ export type ReviewMaxOrderByAggregateInput = {
   bookingId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   tutorId?: Prisma.SortOrder
-  review?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -447,7 +426,6 @@ export type ReviewMinOrderByAggregateInput = {
   bookingId?: Prisma.SortOrder
   studentId?: Prisma.SortOrder
   tutorId?: Prisma.SortOrder
-  review?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -576,20 +554,18 @@ export type ReviewUncheckedUpdateOneWithoutBookingNestedInput = {
 
 export type ReviewCreateWithoutStudentInput = {
   id?: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  tutor: Prisma.TutorProfilesCreateNestedOneWithoutReviewsInput
   booking: Prisma.BookingCreateNestedOneWithoutReviewInput
+  tutor: Prisma.TutorProfilesCreateNestedOneWithoutReviewsInput
 }
 
 export type ReviewUncheckedCreateWithoutStudentInput = {
   id?: string
   bookingId: string
   tutorId: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -630,7 +606,6 @@ export type ReviewScalarWhereInput = {
   bookingId?: Prisma.StringFilter<"Review"> | string
   studentId?: Prisma.StringFilter<"Review"> | string
   tutorId?: Prisma.StringFilter<"Review"> | string
-  review?: Prisma.StringFilter<"Review"> | string
   rating?: Prisma.DecimalFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
@@ -639,20 +614,18 @@ export type ReviewScalarWhereInput = {
 
 export type ReviewCreateWithoutTutorInput = {
   id?: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  student: Prisma.UserCreateNestedOneWithoutReviewsInput
   booking: Prisma.BookingCreateNestedOneWithoutReviewInput
+  student: Prisma.UserCreateNestedOneWithoutReviewsInput
 }
 
 export type ReviewUncheckedCreateWithoutTutorInput = {
   id?: string
   bookingId: string
   studentId: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -687,7 +660,6 @@ export type ReviewUpdateManyWithWhereWithoutTutorInput = {
 
 export type ReviewCreateWithoutBookingInput = {
   id?: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -700,7 +672,6 @@ export type ReviewUncheckedCreateWithoutBookingInput = {
   id?: string
   studentId: string
   tutorId: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -725,7 +696,6 @@ export type ReviewUpdateToOneWithWhereWithoutBookingInput = {
 
 export type ReviewUpdateWithoutBookingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -738,7 +708,6 @@ export type ReviewUncheckedUpdateWithoutBookingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -749,7 +718,6 @@ export type ReviewCreateManyStudentInput = {
   id?: string
   bookingId: string
   tutorId: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -758,20 +726,18 @@ export type ReviewCreateManyStudentInput = {
 
 export type ReviewUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tutor?: Prisma.TutorProfilesUpdateOneRequiredWithoutReviewsNestedInput
   booking?: Prisma.BookingUpdateOneRequiredWithoutReviewNestedInput
+  tutor?: Prisma.TutorProfilesUpdateOneRequiredWithoutReviewsNestedInput
 }
 
 export type ReviewUncheckedUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -782,7 +748,6 @@ export type ReviewUncheckedUpdateManyWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   tutorId?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -793,7 +758,6 @@ export type ReviewCreateManyTutorInput = {
   id?: string
   bookingId: string
   studentId: string
-  review: string
   rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: string | null
   createdAt?: Date | string
@@ -802,20 +766,18 @@ export type ReviewCreateManyTutorInput = {
 
 export type ReviewUpdateWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  student?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
   booking?: Prisma.BookingUpdateOneRequiredWithoutReviewNestedInput
+  student?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
 }
 
 export type ReviewUncheckedUpdateWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -826,7 +788,6 @@ export type ReviewUncheckedUpdateManyWithoutTutorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
-  review?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -840,14 +801,13 @@ export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   bookingId?: boolean
   studentId?: boolean
   tutorId?: boolean
-  review?: boolean
   rating?: boolean
   comment?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorProfilesDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -855,14 +815,13 @@ export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   bookingId?: boolean
   studentId?: boolean
   tutorId?: boolean
-  review?: boolean
   rating?: boolean
   comment?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorProfilesDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -870,14 +829,13 @@ export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   bookingId?: boolean
   studentId?: boolean
   tutorId?: boolean
-  review?: boolean
   rating?: boolean
   comment?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorProfilesDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectScalar = {
@@ -885,43 +843,41 @@ export type ReviewSelectScalar = {
   bookingId?: boolean
   studentId?: boolean
   tutorId?: boolean
-  review?: boolean
   rating?: boolean
   comment?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "bookingId" | "studentId" | "tutorId" | "review" | "rating" | "comment" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
+export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "bookingId" | "studentId" | "tutorId" | "rating" | "comment" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorProfilesDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
 }
 export type ReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorProfilesDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
 }
 export type ReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.TutorProfilesDefaultArgs<ExtArgs>
-  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
 }
 
 export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Review"
   objects: {
+    booking: Prisma.$BookingPayload<ExtArgs>
     student: Prisma.$UserPayload<ExtArgs>
     tutor: Prisma.$TutorProfilesPayload<ExtArgs>
-    booking: Prisma.$BookingPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     bookingId: string
     studentId: string
     tutorId: string
-    review: string
     rating: runtime.Decimal
     comment: string | null
     createdAt: Date
@@ -1320,9 +1276,9 @@ readonly fields: ReviewFieldRefs;
  */
 export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  booking<T extends Prisma.BookingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BookingDefaultArgs<ExtArgs>>): Prisma.Prisma__BookingClient<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   student<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tutor<T extends Prisma.TutorProfilesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TutorProfilesDefaultArgs<ExtArgs>>): Prisma.Prisma__TutorProfilesClient<runtime.Types.Result.GetResult<Prisma.$TutorProfilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  booking<T extends Prisma.BookingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BookingDefaultArgs<ExtArgs>>): Prisma.Prisma__BookingClient<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1356,7 +1312,6 @@ export interface ReviewFieldRefs {
   readonly bookingId: Prisma.FieldRef<"Review", 'String'>
   readonly studentId: Prisma.FieldRef<"Review", 'String'>
   readonly tutorId: Prisma.FieldRef<"Review", 'String'>
-  readonly review: Prisma.FieldRef<"Review", 'String'>
   readonly rating: Prisma.FieldRef<"Review", 'Decimal'>
   readonly comment: Prisma.FieldRef<"Review", 'String'>
   readonly createdAt: Prisma.FieldRef<"Review", 'DateTime'>

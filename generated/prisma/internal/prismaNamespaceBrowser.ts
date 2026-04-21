@@ -53,10 +53,11 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   TutorProfiles: 'TutorProfiles',
-  Subjects: 'Subjects',
+  Subject: 'Subject',
   Category: 'Category',
   Booking: 'Booking',
-  Review: 'Review'
+  Review: 'Review',
+  TutorSubject: 'TutorSubject'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -99,23 +100,23 @@ export const TutorProfilesScalarFieldEnum = {
   education: 'education',
   avgRating: 'avgRating',
   totalReviews: 'totalReviews',
+  tutorId: 'tutorId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  tutorId: 'tutorId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type TutorProfilesScalarFieldEnum = (typeof TutorProfilesScalarFieldEnum)[keyof typeof TutorProfilesScalarFieldEnum]
 
 
-export const SubjectsScalarFieldEnum = {
+export const SubjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  createdAt: 'createdAt',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  createdAt: 'createdAt'
 } as const
 
-export type SubjectsScalarFieldEnum = (typeof SubjectsScalarFieldEnum)[keyof typeof SubjectsScalarFieldEnum]
+export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeof SubjectScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {
@@ -123,9 +124,9 @@ export const CategoryScalarFieldEnum = {
   categoryType: 'categoryType',
   price: 'price',
   description: 'description',
+  tutorId: 'tutorId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  tutorId: 'tutorId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -141,6 +142,7 @@ export const BookingScalarFieldEnum = {
   totalPrice: 'totalPrice',
   status: 'status',
   note: 'note',
+  subjectId: 'subjectId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -153,7 +155,6 @@ export const ReviewScalarFieldEnum = {
   bookingId: 'bookingId',
   studentId: 'studentId',
   tutorId: 'tutorId',
-  review: 'review',
   rating: 'rating',
   comment: 'comment',
   createdAt: 'createdAt',
@@ -161,6 +162,14 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const TutorSubjectScalarFieldEnum = {
+  tutorId: 'tutorId',
+  subjectId: 'subjectId'
+} as const
+
+export type TutorSubjectScalarFieldEnum = (typeof TutorSubjectScalarFieldEnum)[keyof typeof TutorSubjectScalarFieldEnum]
 
 
 export const SortOrder = {

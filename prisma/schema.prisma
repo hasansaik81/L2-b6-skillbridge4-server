@@ -7,13 +7,7 @@ datasource db {
   provider = "postgresql"
 }
 
-// model User {
-//     id        String   @id @default(uuid())
-//     email     String   @unique
-//     name      String?
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
-// }
+
 
 enum Role {
   STUDENT
@@ -40,10 +34,6 @@ enum CategoryType {
   ONLINE
 }
 
-
-
-
-
 model User {
   id           String   @id @default(uuid())
   name         String
@@ -52,127 +42,140 @@ model User {
   role         Role
   isBanned     Boolean  @default(false)
   avatar       String?
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
   status       Status   @default(ACTIVE)
 
-  tutorProfile  TutorProfiles?
-  
-  bookings Booking[]
+  bookings     Booking[]
+  reviews      Review[]
+  tutorProfile TutorProfiles?
 
- @@index([status])
+  @@index([status])
   @@map("users")
+}
+model TutorProfiles {
+  id           String   @id @default(uuid())
+  bio          String
+  hourlyRate   Float?
+  experience   Int
+  education    String?
+
+  avgRating    Decimal  @default(0) @db.Decimal(2, 1)
+  totalReviews Int      @default(0)
+
+  tutorId      String   @unique
+  user         User     @relation(fields: [tutorId], references: [id])
+
+  categories   Category[]
+  bookings     Booking[]
+  reviews      Review[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+   tutorSubjects TutorSubject[]
+
+  @@map("tutor_profiles")
  
-  
-  reviews Review[]
 }
 
 
-model TutorProfiles{
-  id          String   @id @default(uuid())
-  // userId     String @unique
-  bio         String
-  hourlyRate  Float?
-  experience  Int      // years of experience
-  education   String?
-  avgRating   Decimal @default(0) @db.Decimal(2, 1) 
-  totalReviews Int @default(0)// e.g., 4.5
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-    
-    
-  tutorId     String @unique
-  user    User @relation(fields: [tutorId],references: [id])
-   categories Category[]
-  // Relations
-     bookings Booking[]
-    reviews Review[]
-   
-   
-  @@map("tutorProfile")
-  
-  
-}
 
-
-model  Subject {
-  id          String   @id @default(uuid())
-  name        String @unique
-  description String?
-  createdAt   DateTime @default(now())
-  
+model Subject {
+  id           String   @id @default(uuid())
+  name         String   @unique
+  description  String?
 
   categoryId   String
-  category    Category @relation(fields: [categoryId],references: [id])
+  category     Category @relation(fields: [categoryId], references: [id])
 
-  
-  
-  @@map("subjects")
-}
-
-model Category {
-   id            String      @id @default(uuid())
-  categoryType   CategoryType
-  price         Float
-  description   String?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-
-  tutorId      String
-  tutor        TutorProfiles @relation(fields: [tutorId],references: [id])
-   
+  createdAt    DateTime @default(now())
+   tutorSubjects TutorSubject[]
     bookings Booking[]
-    subjects Subject[]
-  
-  
-  @@map("category")
+  @@map("subjects")
  
   
 }
 
 
-model Booking {
-  id               String   @id @default(uuid())
-  studentId        String
-  tutorId          String
-  categoryId       String
-  startDate        DateTime
-  endDate          DateTime
-  totalPrice       Float
-  status      BookingStatus @default(PENDING)
-  note        String?
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Category {
+  id            String       @id @default(uuid())
+  categoryType  CategoryType
+  price         Float
+  description   String?
 
-  student     User @relation( fields: [studentId], references: [id])
-  tutor       TutorProfiles @relation( fields: [tutorId], references: [id])
-  category    Category @relation(fields: [categoryId], references: [id])
-  review  Review?
+  tutorId       String
+  tutor         TutorProfiles @relation(fields: [tutorId], references: [id])
+
+  subjects      Subject[]
+  bookings      Booking[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Booking {
+  id         String        @id @default(uuid())
+
+  studentId  String
+  tutorId    String
+  categoryId String
+ 
+  startDate  DateTime
+  endDate    DateTime
+  totalPrice Float
+  status     BookingStatus @default(PENDING)
+  note       String?
+
+  student    User          @relation(fields: [studentId], references: [id])
+  tutor      TutorProfiles  @relation(fields: [tutorId], references: [id])
+  category   Category      @relation(fields: [categoryId], references: [id])
+   subjectId  String?
+  subject     Subject?    @relation(fields: [subjectId],references:[id])
+
+  review     Review?
+
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
 
   @@map("bookings")
-  
 }
+
 
 model Review {
-  id          String   @id @default(uuid())
-  bookingId   String   @unique
-  studentId   String
-  tutorId     String
-  review       String
-  rating      Decimal  @db.Decimal(2, 1) // e.g., 4.5
-  comment     String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String   @id @default(uuid())
 
-  student     User @relation( fields: [studentId], references: [id])
-  tutor       TutorProfiles @relation( fields: [tutorId], references: [id],onDelete: Cascade)
-  booking     Booking @relation(fields: [bookingId],references: [id],onDelete: Cascade)
+  bookingId  String   @unique
+  studentId  String
+  tutorId    String
 
-@@index([studentId])
+  rating     Decimal  @db.Decimal(2, 1)
+  comment    String?
+
+  booking    Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  student    User     @relation(fields: [studentId], references: [id])
+  tutor      TutorProfiles @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+ 
+ @@index([studentId])
 @@index([tutorId])
- @@map("reviews")
+  @@map("reviews")
 }
 
+model TutorSubject {
+  tutorId  String
+  subjectId  String
+
+  tutor   TutorProfiles @relation(fields: [tutorId],references: [id])
+  subject  Subject @relation(fields: [subjectId],references: [id])
+
+  @@id([tutorId,subjectId])
+  @@map("tutor_subjects")
+}
 
 

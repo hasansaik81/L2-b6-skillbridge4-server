@@ -1,5 +1,5 @@
 
-import { Subjects } from "../../../generated/prisma/client";
+import { Subject } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma"
 
 
@@ -22,27 +22,6 @@ const createCategoryIntoDB=async(payLoad:any,userId:string)=>{
 //  tutorId:user
 // userId: user.id
 
-
-// // const createCategory = async (payload: any) => {
-// //   const tutor = await prisma.tutorProfiles.findUnique({
-// //     where: { id: payload.tutorId }
-// //   });
-
-// //   if (!tutor) {
-// //     throw new Error("Tutor not found");
-// //   }
-
-// //   const result = await prisma.category.create({
-// //     data: {
-// //       categoryType: payload.categoryType,
-// //       price: payload.price,
-// //       description: payload.description,
-// //       tutorId: payload.tutorId
-// //     }
-// //   });
-
-//   return result;
-// // };
 
 
 const getAllCategoryIntoDB=async(userId:string)=>{
@@ -73,12 +52,9 @@ const getAllCategoryIntoDB=async(userId:string)=>{
 const getSingleCategoryIntoDB = async (tutorId: string) => {
   const result = await prisma.tutorProfiles.findUnique({
     where: {
-      tutorId: tutorId,
+      id: tutorId,
     },
-    include: {
-      user: true,
-      categories: true,
-    },
+    
   });
 
   return result;
@@ -119,32 +95,127 @@ const getPublicSingleCategoryIntoDB = async (categoryId: string) => {
   });
 };
 
-const createSubject = async (data:Subjects) => {
- 
-    return await prisma.subjects.create({
-    data
-  });
+
+const createSubject = async (data: any) => {
+  try {
+    const { categoryId, ...rest } = data;
+
+    if (!categoryId) {
+      throw new Error("categoryId is required");
+    }
+
+    return await prisma.subject.create({
+      data: {
+        ...rest,
+        category: {
+          connect: { id: categoryId },
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Subject creation failed:", error);
+    throw error;
+  }
 };
 
 
 
 
-const updateSubject=async(data:Subjects,subjectId:string)=>{
-    return await prisma.subjects.update({
-        where:{
-            id:subjectId
-        },
-        data
-    });
+const getAllSubjects = async (userId: any) => {
+ 
+  const user = await prisma.user.findMany({
+    where: {
+      id: userId
+    },
+  });
+if(!user){
+  throw new Error ("User not found!!")
 }
 
-const deleteSubject=async(subjectId:string)=>{
-    return await prisma.subjects.delete({
-        where:{
-            id:subjectId
-        }
-    })
-}
+const result =await prisma.subject.findMany({
+  where:{
+    category:user.id
+  },
+})
+ return result
+};
+
+// category.service.ts
+
+// export const getAllSubjects = async () => {
+//   // এখানে userId চেক করার দরকার নেই যদি আপনি সব সাবজেক্ট দেখতে চান
+//   const result = await prisma.subject.findMany({
+//     include: {
+//       category: true, // যদি ক্যাটাগরির ডিটেইলসও দেখতে চান
+//     },
+//   });
+
+//   // যদি ডাটাবেস একদম খালি থাকে তবে এরর থ্রো না করে খালি অ্যারে পাঠানোই ভালো
+//   return result; 
+// };
+
+// type TQuery = {
+//   search?: string;
+//   page?: string;
+//   limit?: string;
+// };
+
+// const getAllSubjects = async (query: TQuery) => {
+//   const { search, page = "1", limit = "10" } = query;
+
+//   const skip = (Number(page) - 1) * Number(limit);
+
+//   const subjects = await prisma.subject.findMany({
+//     where: {
+//       name: {
+//         contains: search || "",
+//         mode: "insensitive",
+//       },
+//     },
+//     include: {
+//       category: true,
+//     },
+//     skip,
+//     take: Number(limit),
+//   });
+
+//   return subjects;
+// };
+
+
+
+
+
+
+
+const updateSubject = async (
+  data: Partial<Subject>,
+  subjectId: string
+) => {
+  return await prisma.subject.update({
+    where: {
+      id: subjectId,
+    },
+    data: {
+      ...data,
+    },
+  });
+};
+
+
+const deleteSubject = async (subjectId: string) => {
+  const subject = await prisma.subject.findUnique({
+    where: { id: subjectId },
+  });
+
+  if (!subject) {
+    throw new Error("Subject not found");
+  }
+
+  return await prisma.subject.delete({
+    where: { id: subjectId },
+  });
+};
 
 
 export const CategoryService = {
@@ -153,6 +224,7 @@ export const CategoryService = {
     getSingleCategoryIntoDB,
     getPublicAllCategoryIntoDB,
     getPublicSingleCategoryIntoDB,
+    getAllSubjects,
     createSubject,
     updateSubject,
     deleteSubject
