@@ -1,219 +1,94 @@
 
-
-// import { Booking, Role } from "../../../generated/prisma/client";
-// import { prisma } from "../../lib/prisma";
-
-
-// const createBookingIntoDB = async (
-//   payload: Omit<Booking,"id"|"createdAt"|"updatedAt">,
-//   userId: string
-// ) => {
-//   return await prisma.$transaction(async (tx) => {
-
-//     //  Check Student
-//     const student = await tx.user.findUnique({
-//       where: { id: userId },
-//     });
-
-//     if (!student) throw new Error("Student not found");
-
-//     if (student.role !== Role.STUDENT) {
-//       throw new Error("Only students can book tutors");
-//     }
-
-//     //  Check Tutor (IMPORTANT FIX)
-//     const tutorProfile = await tx.tutorProfiles.findUnique({
-//       where: { id: payload.tutorId }, // tutorId = userId
-//       include: { user: true },
-//     });
-
-//     if (!tutorProfile) {
-//       throw new Error("Tutor not found");
-//     }
-
-//     if (tutorProfile.user.role !== Role.TUTOR) {
-//       throw new Error("Selected user is not a tutor");
-//     }
-
-//     //  Check Category
-//     const category = await tx.category.findUnique({
-//       where: { id: payload.categoryId },
-//     });
-
-//     if (!category) {
-//       throw new Error("Category not found");
-
-//     }
-
-
-//       //  Check Subject (🔥 ADDED THIS)
-//     const subject = await tx.subject.findUnique({
-//       where: { id: payload.subjectId },
-//     });
-
-//     if (!subject) {
-//       throw new Error("Subject not found");
-//     }
-
-//     //  Validate Time
-//     const startTime = new Date(payload.startDate).getTime();
-//     const endTime = new Date(payload.endDate).getTime();
-
-//     if (endTime <= startTime) {
-//       throw new Error("End date must be after start date");
-//     }
-
-//     //  Overlap check (FIXED)
-//     const existingBooking = await tx.booking.findFirst({
-//       where: {
-//         tutorId: tutorProfile.user.id,
-//         OR: [
-//           {
-//             startDate: {
-//               lte: payload.endDate,
-//             },
-//             endDate: {
-//               gte: payload.startDate,
-//             },
-//           },
-//         ],
-//       },
-//     });
-
-//     if (existingBooking) {
-//       throw new Error("Tutor is already booked at this time");
-//     }
-
-//     //  Calculate Price
-//     const durationInHour = (endTime - startTime) / (1000 * 60 * 60);
-//     const totalPrice = durationInHour * category.price;
-
-//     //  Create Booking
-//     const booking = await tx.booking.create({
-//       data: {
-//         studentId: userId,
-//         tutorId: tutorProfile.id,
-//         categoryId: payload.categoryId,
-//           subjectId: payload.subjectId, 
-//         startDate: payload.startDate,
-//         endDate: payload.endDate,
-//         totalPrice,
-//         status: "PENDING",
-//         note: payload.note,
-
-//         // ...payload,totalPrice
-//       },
-//     });
-
-//     return booking;
-//   });
-// };
-
-// export const BookingService = {
-//   createBookingIntoDB,
-// };
-
-
-
-
-
 import { Booking, Role } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 
-type BookingPayload = Omit<
-  Booking,
-  "id" | "createdAt" | "updatedAt"
->;
+type BookingPayload = Omit<Booking, "id" | "createdAt" | "updatedAt">;
 
 const createBookingIntoDB = async (
   payload: BookingPayload,
-  userId: string
+  userId: string 
 ) => {
   return await prisma.$transaction(async (tx) => {
 
-    // =========================
-    // 1. Check Student
-    // =========================
+    
+    //  STUDENT CHECK
+   
     const student = await tx.user.findUnique({
       where: { id: userId },
     });
 
-    if (!student) {
-      throw new Error("Student not found");
-    }
+    if (!student) throw new Error("Student not found");
 
     if (student.role !== Role.STUDENT) {
       throw new Error("Only students can book tutors");
     }
 
-    // =========================
-    // 2. Check Tutor
-    // =========================
+   
+    // TUTOR CHECK
+ 
     const tutorProfile = await tx.tutorProfiles.findUnique({
       where: { id: payload.tutorId },
       include: { user: true },
     });
 
-    if (!tutorProfile) {
-      throw new Error("Tutor not found");
-    }
+    if (!tutorProfile) throw new Error("Tutor not found");
 
     if (tutorProfile.user.role !== Role.TUTOR) {
       throw new Error("Selected user is not a tutor");
     }
 
-    // =========================
-    // 3. Check Category
-    // =========================
+    
+    //  CATEGORY CHECK
+   
     const category = await tx.category.findUnique({
       where: { id: payload.categoryId },
     });
 
-    if (!category) {
-      throw new Error("Category not found");
-    }
+    if (!category) throw new Error("Category not found");
 
-    // =========================
-    // 4. CHECK SUBJECT (FIXED)
-    // =========================
+    
+    //  SUBJECT CHECK
+   
     if (!payload.subjectId) {
       throw new Error("Subject is required");
     }
 
     const subject = await tx.subject.findUnique({
-      where: {
-        id: payload.subjectId, // ✅ no TS error now
-      },
+      where: { id: payload.subjectId },
     });
 
-    if (!subject) {
-      throw new Error("Subject not found");
-    }
+    if (!subject) throw new Error("Subject not found");
 
-    // =========================
-    // 5. Validate Time
-    // =========================
-    const startTime = new Date(payload.startDate).getTime();
-    const endTime = new Date(payload.endDate).getTime();
+    
+    //  DATE VALIDATION
+  
+    const start = new Date(payload.startDate);
+    const end = new Date(payload.endDate);
 
-    if (endTime <= startTime) {
+    if (end.getTime() <= start.getTime()) {
       throw new Error("End date must be after start date");
     }
 
-    // =========================
-    // 6. Overlap Check
-    // =========================
+    
+    const durationInHour = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+
+    if (durationInHour <= 0) {
+      throw new Error("Invalid time range");
+    }
+
+   
+    //  OVERLAP CHECK 
+   
     const existingBooking = await tx.booking.findFirst({
       where: {
         tutorId: tutorProfile.id,
-        OR: [
+        status: { not: "CANCELLED" }, 
+        AND: [
           {
-            startDate: {
-              lte: payload.endDate,
-            },
-            endDate: {
-              gte: payload.startDate,
-            },
+            startDate: { lt: end },
+          },
+          {
+            endDate: { gt: start },
           },
         ],
       },
@@ -223,27 +98,32 @@ const createBookingIntoDB = async (
       throw new Error("Tutor is already booked at this time");
     }
 
-    // =========================
-    // 7. Price Calculation
-    // =========================
-    const durationInHour = (endTime - startTime) / (1000 * 60 * 60);
+   
+    //  PRICE CALCULATION
+    
     const totalPrice = durationInHour * category.price;
 
-    // =========================
-    // 8. CREATE BOOKING (FIXED)
-    // =========================
+   
+    //  CREATE BOOKING (FIXED)
+   
+   
     const booking = await tx.booking.create({
       data: {
-        studentId: userId,
+        studentId: userId,          
         tutorId: tutorProfile.id,
         categoryId: payload.categoryId,
-        subjectId: payload.subjectId, // ✅ FIXED HERE
-        startDate: payload.startDate,
-        endDate: payload.endDate,
-        totalPrice,
+        subjectId: payload.subjectId,
+        startDate: start,
+        endDate: end,
+        totalPrice: Number(totalPrice.toFixed(2)), 
         status: "PENDING",
-        note: payload.note,
+        note: payload.note || "",
       },
+      include: {
+        subject: true,
+        tutor: true,
+        category: true
+      }
     });
 
     return booking;

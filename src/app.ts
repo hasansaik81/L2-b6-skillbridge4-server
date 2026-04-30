@@ -3,9 +3,10 @@ import cors from 'cors';
 
 // import router from './routes';
 import { AuthRoutes } from './modules/Auth/auth.route';
-import { errorHandler } from './middlewares/globalErrorHandler';
+// import { errorHandler } from './middlewares/globalErrorHandler';
 import { notFound } from './middlewares/notFound';
 import router from './routes';
+import errorHandler from './middlewares/globalErrorHandler';
 // import { TutorRoutes } from './modules/Tutor/tutor.route';
 
 const app: Application = express();

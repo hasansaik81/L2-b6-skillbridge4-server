@@ -92,7 +92,7 @@ model Subject {
 
   createdAt    DateTime @default(now())
    tutorSubjects TutorSubject[]
-    bookings Booking[]
+  bookings Booking[]
   @@map("subjects")
  
   
@@ -143,6 +143,9 @@ model Booking {
 
   @@map("bookings")
 }
+
+
+
 
 
 model Review {

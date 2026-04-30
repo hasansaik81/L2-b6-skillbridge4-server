@@ -1,10 +1,18 @@
 import express from "express";
-import { BookingController } from "./booking.controller";
 import auth, { UserRole } from "../../middlewares/auth";
+import { BookingController } from "./booking.controller";
+
 
 const router = express.Router();
 
-// Only STUDENT can book
-router.post("/", auth(UserRole.student), BookingController.createBooking);
+// Student only
+router.post(
+  "/",
+  auth(UserRole.student),
+  BookingController.createBooking
+);
 
-export const BookingRoutes = router;
+
+
+
+export const BookingRoutes= router;

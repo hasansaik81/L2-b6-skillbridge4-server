@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { TutorService } from "./tutor.service";
 import sendResponse from "../../utils/sendResponse";
 
-const createTutor=async(req:Request, res:Response)=>{
+const createTutor=async(req:Request, res:Response,next:NextFunction)=>{
 
     try{
       const result=await TutorService.createTutorIntoDB(
@@ -17,22 +17,15 @@ const createTutor=async(req:Request, res:Response)=>{
 
       });
     }catch (error:any){
-      
-          sendResponse(res,{
-            statusCode:500,
-            success:false,
-            message:error?.message||"Something went wron!!",
-            data:null,
-        
-            
-          });
+      next()
+          
     }
 };
 
 
 
 
-const getAllTutor=async (req:Request,res:Response)=>{
+const getAllTutor=async (req:Request,res:Response,next:NextFunction)=>{
   try{
     const result =await TutorService.getAllTutorIntoDB(req.user?.id);
     sendResponse(res,{
@@ -43,16 +36,11 @@ const getAllTutor=async (req:Request,res:Response)=>{
     });
   }catch(error:any){
     console.error(error)
-    sendResponse(res,{
-      statusCode:400,
-      success:false,
-      message:error?.message||"Something went wrong",
-      data:null,
-    })
+     next()
   };
 }
 
-const getSingleTutor=async(req:Request,res:Response)=>{
+const getSingleTutor=async(req:Request,res:Response,next:NextFunction)=>{
   try{
   
     const result=await TutorService.getSingleSitterIntoDB(req.params?.id as string);
@@ -64,21 +52,16 @@ const getSingleTutor=async(req:Request,res:Response)=>{
     });
   }catch(error:any){
     console.error(error)
-    sendResponse(res,{
-      statusCode:400,
-      success:false,
-      message:error?.message||"Something went wrong",
-      data:null,
-    })
+   next()
   };
 
 }
 
 
 
-const updateTutorSubjects = async (req: Request, res: Response) => {
+const updateTutorSubjects = async (req: Request, res: Response,next:NextFunction) => {
   try {
-    // এখানে 'as any' অথবা নির্দিষ্ট টাইপ দিয়ে কাস্ট করুন
+    
     const user = req.user as any; 
     const { subjectIds } = req.body;
 
@@ -96,18 +79,13 @@ const updateTutorSubjects = async (req: Request, res: Response) => {
     });
     
   } catch (error: any) {
-    sendResponse(res, {
-      statusCode: 500,
-      success: false,
-      message: error.message || 'Something went wrong',
-      data: null,
-    });
+   next()
   }
 };
 
 
 
-const updateBookingStatus=async(req:Request,res:Response)=>{
+const updateBookingStatus=async(req:Request,res:Response,next:NextFunction)=>{
   try {
     const result = await TutorService.updateBookingStatusIntoDB(
       req.body.status,
@@ -120,12 +98,7 @@ const updateBookingStatus=async(req:Request,res:Response)=>{
       data:result,
     });
   } catch (error:any) {
-    sendResponse(res,{
-      statusCode:400,
-      success:false,
-      message:error?.message||"Something went wrong",
-      data:null,
-    })
+      next()
   }
 }
   

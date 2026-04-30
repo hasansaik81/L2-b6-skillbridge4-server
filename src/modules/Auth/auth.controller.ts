@@ -13,18 +13,13 @@ const createUser=async(req:Request,res:Response, next:NextFunction)=>{
     data:result,
   });
     }catch(error:any) {
-      // sendResponse(res,{
-      //   statusCode:400,
-      //   success:false,
-      //    message:error?.message || "Something went wrong",
-      //   data:null,
-      // });
+    
       next(error);
 
     }
 };
 
-const loginUser = async (req: Request, res: Response) => {
+const loginUser = async (req: Request, res: Response ,next:NextFunction) => {
  
   try {
     const result = await AuthService.loginUserIntoDb(req.body);
@@ -42,16 +37,17 @@ const loginUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error: any) {
-    sendResponse(res, {
-      statusCode: 500,
-      success: false,
-      message: error?.message || "Something went wrong",
-      data: null,
-    });
+    // sendResponse(res, {
+    //   statusCode: 500,
+    //   success: false,
+    //   message: error?.message || "Something went wrong",
+    //   data: null,
+    // });
+        next(error)
   }
 };
 
-  const getMe = async (req: Request, res: Response) => {
+  const getMe = async (req: Request, res: Response ,next:NextFunction) => {
   try {
     const result = await AuthService.getMe(req.user?.id as string);
 
@@ -63,12 +59,13 @@ const loginUser = async (req: Request, res: Response) => {
     });
 
   } catch (error: any) {
-    sendResponse(res, {
-      statusCode: 500,
-      success: false,
-      message: error?.message || "Something went wrong",
-      data: null,
-    });
+    // sendResponse(res, {
+    //   statusCode: 500,
+    //   success: false,
+    //   message: error?.message || "Something went wrong",
+    //   data: null,
+    // });
+    next(error)
   }
 };
 

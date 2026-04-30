@@ -5,11 +5,7 @@ import { NextFunction, Request, Response } from "express";
 import { ReviewService } from "./reiview.service";
 import sendResponse from "../../utils/sendResponse";
 
-const createReview = async (
-  req: Request,
-  res: Response,
- 
-) => {
+const createReview = async (req: Request,res: Response,next:NextFunction) => {
   try {
     const validated = req.body;
 
@@ -25,19 +21,11 @@ const createReview = async (
       data: result,
     });
   } catch (error: any) {
-    sendResponse(res, {
-      statusCode: 400,
-      success: false,
-      message: error.message || "Failed to create review",
-    });
+        next()
   }
 };
 
-const getTutorReviews = async (
-  req: Request,
-  res: Response,
- 
-) => {
+const getTutorReviews = async (req: Request,res: Response, next:NextFunction) => {
   try {
     const  tutorId = req.params.id as string
 
@@ -50,11 +38,7 @@ const getTutorReviews = async (
       data: result,
     });
   } catch (error:any) {
-    sendResponse(res, {
-      statusCode: 400,
-      success: false,
-      message: error.message || "Failed to fetch reviews",
-    });
+    next()
   }
 };
 
