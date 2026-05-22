@@ -113,54 +113,6 @@ const getSingleCategory=async(req:Request,res:Response,next:NextFunction)=>{
 
 
 
-// const createSubject= async(req:Request,res:Response,next:NextFunction)=>{
-//     try{
-//     const result=await CategoryService.createSubject(req.body)
-//     sendResponse(res,{
-//       statusCode:201,
-//       success:true,
-//       message:"subject create successfully",
-//       data:result
-//     })
-
-//     }catch (error:any){
-//         next(error)
-//     }
-// }
-
-
-
-
-
-// const updateSubject= async(req:Request,res:Response,next:NextFunction)=>{
-//     try{
-//     const result=await CategoryService.updateSubject(req.body,req.params?.id as string)
-//     sendResponse(res,{
-//       statusCode:201,
-//       success:true,
-//       message:"subject updated successfully",
-//       data:result
-//     })
-//     }catch (error:any){
-//     next(error)
-//     }
-// }
-
-// const deleteSubject= async(req:Request,res:Response,next:NextFunction)=>{
-//     try{
-//     const result=await CategoryService.deleteSubject(req.params?.id as string)
-//     sendResponse(res,{
-//       statusCode:201,
-//       success:true,
-//       message:"subject deleted successfully",
-//       data:result
-//     })
-//     }catch (error:any){
-//      next(error)
-//     }
-// }
-
-
 
 export const CategoryController = {
     
@@ -169,10 +121,7 @@ export const CategoryController = {
     getPublicAllCategory,
     getPublicSingleCategory,
     createCategory,
-  //   createSubject,
-  //  getAllSubjects,
-  //   updateSubject,
-  //   deleteSubject
+ 
 };
     
 

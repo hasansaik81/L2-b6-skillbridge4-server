@@ -64,9 +64,10 @@ const createBookingIntoDB = async (
   
     const start = new Date(payload.startDate);
     const end = new Date(payload.endDate);
+    const now = new Date();
 
-    if (end.getTime() <= start.getTime()) {
-      throw new Error("End date must be after start date");
+    if (end <= start) {
+      throw new Error("Start date must be in the future");
     }
 
     
@@ -130,6 +131,21 @@ const createBookingIntoDB = async (
   });
 };
 
+
+const getSingleBookingFromDB = async (bookingId: string) => {
+  return await prisma.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      tutor: true,
+      subject: true,
+      category: true,
+    },
+  });
+};
+
+
+
 export const BookingService = {
   createBookingIntoDB,
+  getSingleBookingFromDB,
 };

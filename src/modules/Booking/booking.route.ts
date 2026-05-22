@@ -12,6 +12,8 @@ router.post(
   BookingController.createBooking
 );
 
+// router.get("/:id",auth(UserRole.student,UserRole.tutor),BookingController.getSingleBooking);
+router.get("/",auth(UserRole.student),BookingController.getSingleBooking);
 
 
 

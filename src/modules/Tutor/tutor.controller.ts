@@ -58,18 +58,17 @@ const getSingleTutor=async(req:Request,res:Response,next:NextFunction)=>{
 }
 
 
-
-const updateTutorSubjects = async (req: Request, res: Response,next:NextFunction) => {
+const updateTutorSubjects = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    
-    const user = req.user as any; 
-    const { subjectIds } = req.body;
+    // Extract the tutorId and the list of subjects from the body
+    const { tutorId, subjectIds } = req.body; 
 
-    if (!user) {
-        throw new Error("Unauthorized access");
+    if (!tutorId) {
+      throw new Error("tutorId is required in the request body");
     }
 
-    const result = await TutorService.updateTutorSubjects(subjectIds, user);
+    // Pass the tutorId directly to the service layer
+    const result = await TutorService.updateTutorSubjects(tutorId, subjectIds || []);
 
     sendResponse(res, {
       statusCode: 200,
@@ -79,10 +78,9 @@ const updateTutorSubjects = async (req: Request, res: Response,next:NextFunction
     });
     
   } catch (error: any) {
-   next()
+    next(error); // Passes error safely to global error handler
   }
 };
-
 
 
 const updateBookingStatus=async(req:Request,res:Response,next:NextFunction)=>{

@@ -1,33 +1,10 @@
-// import { NextFunction, Request, Response } from "express";
-// import { Prisma } from "../../generated/prisma/client";
-
-// export function errorHandler(
-//   err: any,
-//   req: Request,
-//   res: Response,
-//   next: NextFunction,
-// ) {
-//   let statusCode = 500;
-//   let errMessage = "Internal server Error!";
-//   let errorDetails = err;
-
-//   if (err instanceof Prisma.PrismaClientValidationError) {
-//     ((statusCode = 400), (errMessage = "Incorrect body or missing a fields"));
-//   }
-
-//   res.status(statusCode);
-//   res.json({ success: false, message: errMessage, error: errorDetails });
-// }
-
-
-
 
 
 import { NextFunction, Request, Response } from "express";
 import { Prisma } from "../../generated/prisma/client";
 
 function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
-    let statusCode = 500; // ডিফল্ট স্ট্যাটাস ৫০০ রাখা ভালো
+    let statusCode = 500; 
     let message = err.message || "Internal Server Error";
     let error = err;
 
@@ -54,7 +31,7 @@ function errorHandler(err: any, req: Request, res: Response, next: NextFunction)
         if (err.errorCode === "P1001") message = "Cannot connect to the database.";
     }
 
-    // রেসপন্স পাঠানো
+    
     res.status(statusCode).json({
         success: false,
         message,
