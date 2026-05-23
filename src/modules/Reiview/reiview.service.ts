@@ -192,9 +192,8 @@ const createReview = async (
     //  Create review
     const review = await tx.review.create({
       data: {
-        rating: payload.rating,
-         review: payload.review, 
-        comment: payload.comment,
+        rating: payload.rating, 
+        comment: payload.review,
         studentId,
         tutorId: booking.tutorId, // IMPORTANT
         bookingId: booking.id,
